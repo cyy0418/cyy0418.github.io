@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-98939871-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>GitHub webhooks实现自动部署 | Cyy&#39;s Blog | 生命不止，折腾不息！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Git,webhooks">
+    <meta name="description" content="使用第三方Git仓库，实现代码的自动部署GitHub 提供了Webhooks的功能，我们通过相应的配置就可以实现在代码提交到GitHub后自动部署我们的项目">
+<meta name="keywords" content="Git,webhooks">
+<meta property="og:type" content="article">
+<meta property="og:title" content="GitHub webhooks实现自动部署">
+<meta property="og:url" content="http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/index.html">
+<meta property="og:site_name" content="Cyy&#39;s Blog">
+<meta property="og:description" content="使用第三方Git仓库，实现代码的自动部署GitHub 提供了Webhooks的功能，我们通过相应的配置就可以实现在代码提交到GitHub后自动部署我们的项目">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fgagteiy5ej31ji120dmi.jpg">
+<meta property="og:updated_time" content="2017-09-27T03:33:39.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="GitHub webhooks实现自动部署">
+<meta name="twitter:description" content="使用第三方Git仓库，实现代码的自动部署GitHub 提供了Webhooks的功能，我们通过相应的配置就可以实现在代码提交到GitHub后自动部署我们的项目">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tNbRwgy1fgagteiy5ej31ji120dmi.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.5">
+    <script>window.lazyScripts=[]</script>
+    <!-- 百度站长 -->
+    <meta name="baidu-site-verification" content="MiDIocUaQv" />
+    <!-- 搜狗联盟 -->
+    <meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i">
+    <!-- 百度联盟 -->
+    <meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7">
+    <meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502">
+    <!-- 谷歌广告 -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8385177684799626",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/h.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CYY</h5>
+          <a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/cyyjs" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/cyyabc" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">GitHub webhooks实现自动部署</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">GitHub webhooks实现自动部署</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-09-27T03:33:39.000Z" itemprop="datePublished" class="page-time">
+  2017-09-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#在GitHub添加部署服务器的ssh-key"><span class="post-toc-number">1.</span> <span class="post-toc-text">在GitHub添加部署服务器的ssh key</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#配置Webhooks"><span class="post-toc-number">2.</span> <span class="post-toc-text">配置Webhooks</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#服务器编辑接受处理代码"><span class="post-toc-number">3.</span> <span class="post-toc-text">服务器编辑接受处理代码</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-pM6JLsCa29henIyW"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">GitHub webhooks实现自动部署</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-09-27 11:33:39" datetime="2017-09-27T03:33:39.000Z"  itemprop="datePublished">2017-09-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <blockquote>
+<p>使用第三方Git仓库，实现代码的自动部署<br>GitHub 提供了Webhooks的功能，我们通过相应的配置就可以实现在代码提交到GitHub后自动部署我们的项目</p>
+</blockquote>
+<a id="more"></a>
+<h3 id="在GitHub添加部署服务器的ssh-key"><a href="#在GitHub添加部署服务器的ssh-key" class="headerlink" title="在GitHub添加部署服务器的ssh key"></a>在GitHub添加部署服务器的ssh key</h3><p>1、首先在服务器生成<a href="/2017/05/02/ssh-免密码登录/">ssh key</a><br>2、添加<code>ssh key</code>到GitHub账户中</p>
+<p>选择<code>setting</code> -&gt; <code>SSH and GPG keys</code> -&gt; <code>New SSH Key</code> 添加</p>
+<h3 id="配置Webhooks"><a href="#配置Webhooks" class="headerlink" title="配置Webhooks"></a>配置Webhooks</h3><p>打开需要配置<code>Webhooks</code>的项目，点击<code>Settings</code>，选择<code>Webhooks</code></p>
+<figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws2.sinaimg.cn/large/006tNbRwgy1fgagteiy5ej31ji120dmi.jpg" alt="Webhooks 设置" title=""> </div> <div class="image-caption">Webhooks 设置</div> </figure>
+
+<p>设置触发事件后请求的地址及方法，并选择触发事件的类型，此处选择为<code>push</code>,当我们提交代码的时候触发；设置完成后，点击添加即可。</p>
+<h3 id="服务器编辑接受处理代码"><a href="#服务器编辑接受处理代码" class="headerlink" title="服务器编辑接受处理代码"></a>服务器编辑接受处理代码</h3><p>以<code>nodejs</code> 的 <code>express</code>为例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> shell = <span class="built_in">require</span>(<span class="string">'shelljs'</span>); <span class="comment">// shell npm 包工具</span></div><div class="line"><span class="keyword">var</span> setting = <span class="built_in">require</span>(<span class="string">'../setting'</span>);</div><div class="line"><span class="keyword">var</span> blogPath  = setting.blog.path;</div><div class="line"><span class="built_in">module</span>.exports = <span class="function"><span class="keyword">function</span> (<span class="params">req, res</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> body = req.body;</div><div class="line">    <span class="built_in">console</span>.log(body) <span class="comment">// git 推送的数据</span></div><div class="line">    <span class="keyword">if</span> (!shell.which(<span class="string">'git'</span>)) &#123; <span class="comment">// 判断是否存在git命令</span></div><div class="line">      shell.echo(<span class="string">'Sorry, this script requires git'</span>);</div><div class="line">      shell.exit(<span class="number">1</span>);</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">var</span> cd = shell.cd(blogPath);</div><div class="line">    <span class="keyword">if</span> (!cd.code)&#123;</div><div class="line">        <span class="comment">// 执行git代码拉取操作</span></div><div class="line">        <span class="keyword">if</span> (shell.exec(<span class="string">'git pull origin master'</span>).code !== <span class="number">0</span>) &#123;</div><div class="line">          shell.echo(<span class="string">'Error: Git pull error!'</span>);</div><div class="line">          shell.exit(<span class="number">1</span>);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    res.end();</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>
+        </div>
+
+        <blockquote class="post-copyright">
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2017-09-27T03:33:39.000Z" itemprop="dateUpdated">2017-09-27 11:33:39</time>
+</span><br>
+
+
+        
+        ~_~
+        
+    </div>
+    <footer>
+        <a href="http://blog.cuiyy.top">
+            <img src="/img/h.jpeg" alt="CYY">
+            CYY
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Git/">Git</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webhooks/">webhooks</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/&title=《GitHub webhooks实现自动部署》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/&title=《GitHub webhooks实现自动部署》 — Cyy's Blog&source=
+使用第三方Git仓库，实现代码的自动部署GitHub 提供了Webhooks的功能，我们通过相应的配置就可以实现在代码提交到GitHub后自动部署我们的..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《GitHub webhooks实现自动部署》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+    
+<script type="text/javascript">
+var sogou_ad_id=874310;
+var sogou_ad_height=90;
+var sogou_ad_width=740;
+</script>
+<script type='text/javascript' src='http://images.sohu.com/cs/jsfile/js/c.js'></script>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/09/27/QkkxF6N8eMj7mVKX/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">nodejs使用socket.io实现分布式一对一发送消息</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/09/27/Ja5aO9RFlMdvjYBE/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">ssh 免密码登录</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+
+
+
+
+<section class="comments" id="comments">
+    <div id="disqus_thread"></div>
+    <script>
+    var disqus_shortname = 'blog-lsfyauq8vg';
+    lazyScripts.push('//' + disqus_shortname + '.disqus.com/embed.js')
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</section>
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        买桶泡面~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>CYY &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/&title=《GitHub webhooks实现自动部署》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/&title=《GitHub webhooks实现自动部署》 — Cyy's Blog&source=
+使用第三方Git仓库，实现代码的自动部署GitHub 提供了Webhooks的功能，我们通过相应的配置就可以实现在代码提交到GitHub后自动部署我们的..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《GitHub webhooks实现自动部署》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/09/27/pM6JLsCa29henIyW/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNUlEQVR42u3aQXKEQAgFUO9/aXOAKc0HnKS6fa6sjNo+F4QGjiM+zo/j89fkys/rr1Y5vnFgYGAsyzhvj/sF8oWTD3G/7i8fCAMD4wWM+7CYA3p35U+4/DsGBgZGsPDV9ffBND/HwMDA+K+Ae5+AYmBgYFQ3sXlBrVpKy9d6YC+OgYGxICN/ib8//0p/AwMDYynGWTzuk7Ok3N9rgv7yHAwMjK0ZeYCrtiofLvon74OBgbEpIw98eVhMfr1/fjLkceSxHwMDY3HGZO/be4n8PGkSlP9vYGBgLMtIXqLaesxbCOUXnXxdDAyMBRn5cEO1Jp8PZFS3zYUgi4GBsQUjv20yAJEjq80JDAyMNzB65bPeE3oNy2h1DAyMrRl503EeWOdjZ6NOLAYGxrKMXi5ZLfT3RjeS4H70clUMDIylGEn5PincP9aAjK/EwMB4D6M3hjW/q1diu1wRAwNja8ZkmUmToJcONnuqGBgYizPy0lgvZZyU/gvnGBgYWzMmCz81TpE3OKM0FAMDY1NGXt7KA+ukYFdNZzEwMN7GqBa85mW4vMH5QFKIgYGxOKOaruWpYXVoo1cWxMDA2JVxFo88faw+oTeuUVgYAwNjWcYkXes1FarjYuVhCwwMjE0ZvZGsJNT2vlzvHTAwMN7AmGxcJ+2Eh/fiGBgYGMVyW7VhMNqyYmBgYLSovS1rtZCHgYHxHka+EU2GM3qb2KSZ+kC5DQMDY0FGNe9qlsPy0BlvdDEwMF7A+AH3k9sZse6T6gAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.5"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.5" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
