@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.cuiyy.top/"/>
-  <updated>2017-09-27T09:13:53.000Z</updated>
+  <updated>2017-10-10T05:00:31.916Z</updated>
   <id>http://blog.cuiyy.top/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ssh 免密码登录</title>
+    <link href="http://blog.cuiyy.top/2017/10/10/Ja5aO9RFlMdvjYBE/"/>
+    <id>http://blog.cuiyy.top/2017/10/10/Ja5aO9RFlMdvjYBE/</id>
+    <published>2017-10-10T05:00:31.000Z</published>
+    <updated>2017-10-10T05:00:31.916Z</updated>
+    
+    <content type="html"><![CDATA[<blockquote><p>开发过程中，经常需要使用ssh登录远程主机，每次都要输入密码，影响效率，这里讲解一下，怎么使用ssh无密码登录。</p></blockquote><a id="more"></a><h3 id="本机生成ssh-key"><a href="#本机生成ssh-key" class="headerlink" title="本机生成ssh key"></a>本机生成ssh key</h3><p>ssh 无密码登录要使用公钥与私钥。linux下可以用用<code>ssh-keygen</code>生成公钥/私钥对。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C "xxx@email.com"</div></pre></td></tr></table></figure><p>然后一路回车即可。</p><p>然后可以通过以下命令查看到生成的公钥：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure><h3 id="远程主机生成ssh-key"><a href="#远程主机生成ssh-key" class="headerlink" title="远程主机生成ssh key"></a>远程主机生成ssh key</h3><p>先通过<code>ssh</code>登录到远程主机， 并以同样的方式生成<code>ssh key</code></p><h3 id="复制本机公钥到远程文件"><a href="#复制本机公钥到远程文件" class="headerlink" title="复制本机公钥到远程文件"></a>复制本机公钥到远程文件</h3><p>把本地的<code>id_rsa.pub</code>文件中的内容复制到远程主机的<code>.ssh/authorized_keys</code>文件里.</p><p><code>authorized_keys</code>文件如果没有，可以自己手动创建。</p><p>添加完成后，退出重新使用<code>ssh</code> 登录时，就不需要输入密码了。<div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div></p><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
+    
+    <summary type="html">
+    
+      &lt;blockquote&gt;
+&lt;p&gt;开发过程中，经常需要使用ssh登录远程主机，每次都要输入密码，影响效率，这里讲解一下，怎么使用ssh无密码登录。&lt;/p&gt;
+&lt;/blockquote&gt;
+    
+    </summary>
+    
+      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="ssh" scheme="http://blog.cuiyy.top/tags/ssh/"/>
+    
+  </entry>
   
   <entry>
     <title>nodejs使用socket.io实现分布式一对一发送消息</title>
@@ -63,30 +87,6 @@
       <category term="Git" scheme="http://blog.cuiyy.top/tags/Git/"/>
     
       <category term="webhooks" scheme="http://blog.cuiyy.top/tags/webhooks/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>ssh 免密码登录</title>
-    <link href="http://blog.cuiyy.top/2017/09/27/Ja5aO9RFlMdvjYBE/"/>
-    <id>http://blog.cuiyy.top/2017/09/27/Ja5aO9RFlMdvjYBE/</id>
-    <published>2017-09-27T02:55:35.000Z</published>
-    <updated>2017-09-27T02:55:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>开发过程中，经常需要使用ssh登录远程主机，每次都要输入密码，影响效率，这里讲解一下，怎么使用ssh无密码登录。</p></blockquote><a id="more"></a><h3 id="本机生成ssh-key"><a href="#本机生成ssh-key" class="headerlink" title="本机生成ssh key"></a>本机生成ssh key</h3><p>ssh 无密码登录要使用公钥与私钥。linux下可以用用<code>ssh-keygen</code>生成公钥/私钥对。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">ssh-keygen -t rsa -C "xxx@email.com"</div></pre></td></tr></table></figure><p>然后一路回车即可。</p><p>然后可以通过以下命令查看到生成的公钥：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">cat ~/.ssh/id_rsa.pub</div></pre></td></tr></table></figure><h3 id="远程主机生成ssh-key"><a href="#远程主机生成ssh-key" class="headerlink" title="远程主机生成ssh key"></a>远程主机生成ssh key</h3><p>先通过<code>ssh</code>登录到远程主机， 并以同样的方式生成<code>ssh key</code></p><h3 id="复制本机公钥到远程文件"><a href="#复制本机公钥到远程文件" class="headerlink" title="复制本机公钥到远程文件"></a>复制本机公钥到远程文件</h3><p>把本地的<code>id_rsa.pub</code>文件中的内容复制到远程主机的<code>.ssh/authorized_keys</code>文件里.</p><p><code>authorized_keys</code>文件如果没有，可以自己手动创建。</p><p>添加完成后，退出重新使用<code>ssh</code> 登录时，就不需要输入密码了。<div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div></p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;开发过程中，经常需要使用ssh登录远程主机，每次都要输入密码，影响效率，这里讲解一下，怎么使用ssh无密码登录。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="ssh" scheme="http://blog.cuiyy.top/tags/ssh/"/>
     
   </entry>
   

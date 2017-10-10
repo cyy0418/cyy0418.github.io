@@ -4,6 +4,26 @@
 
     
   <url>
+    <loc>http://blog.cuiyy.top/2017/10/10/Ja5aO9RFlMdvjYBE/</loc>
+    <lastmod>2017-10-10T05:00:31.916Z</lastmod>
+    <data>
+        <display>
+        <title>ssh 免密码登录</title>
+        <pubTime>2017-10-10T05:00:31.000Z</pubTime>
+        
+        <tag>ssh</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/</loc>
     <lastmod>2017-09-27T09:13:53.000Z</lastmod>
     <data>
@@ -36,26 +56,6 @@
         <tag>Git</tag>
          
         <tag>webhooks</tag>
-         
-         
-           
-             
-              <breadCrumb title="技术" url="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog.cuiyy.top/2017/09/27/Ja5aO9RFlMdvjYBE/</loc>
-    <lastmod>2017-09-27T02:55:35.000Z</lastmod>
-    <data>
-        <display>
-        <title>ssh 免密码登录</title>
-        <pubTime>2017-09-27T02:55:35.000Z</pubTime>
-        
-        <tag>ssh</tag>
          
          
            
