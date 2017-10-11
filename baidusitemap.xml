@@ -5,11 +5,11 @@
     
   <url>
     <loc>http://blog.cuiyy.top/2017/10/11/etb9IVimFgncBxLQ/</loc>
-    <lastmod>2017-10-11T03:13:02.120Z</lastmod>
+    <lastmod>2017-10-11T03:27:29.179Z</lastmod>
     <data>
         <display>
         <title>前端工程师都mac系统重装之后</title>
-        <pubTime>2017-10-11T03:13:02.000Z</pubTime>
+        <pubTime>2017-10-11T03:27:29.000Z</pubTime>
         
         <tag> 工具</tag>
          
@@ -17,6 +17,26 @@
            
              
               <breadCrumb title="默认分类" url="http://blog.cuiyy.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
+    <loc>http://blog.cuiyy.top/2017/09/27/dp034EZKdW2mePbk/</loc>
+    <lastmod>2017-10-11T03:26:49.550Z</lastmod>
+    <data>
+        <display>
+        <title>让你备受刮目相看的8个npm技巧</title>
+        <pubTime>2017-09-27T02:26:54.000Z</pubTime>
+        
+        <tag>npm</tag>
+         
+         
+           
+             
+              <breadCrumb title="技术" url="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
           
         </display>
     </data>
@@ -76,26 +96,6 @@
         <pubTime>2017-10-10T05:00:31.000Z</pubTime>
         
         <tag>ssh</tag>
-         
-         
-           
-             
-              <breadCrumb title="技术" url="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
-          
-        </display>
-    </data>
-    </url>
-
-    
-  <url>
-    <loc>http://blog.cuiyy.top/2017/09/27/dp034EZKdW2mePbk/</loc>
-    <lastmod>2017-10-11T02:04:35.408Z</lastmod>
-    <data>
-        <display>
-        <title>让你备受刮目相看的8个npm技巧</title>
-        <pubTime>2017-09-27T02:26:54.000Z</pubTime>
-        
-        <tag>npm</tag>
          
          
            
