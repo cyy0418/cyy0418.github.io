@@ -1,1 +1,537 @@
-<!DOCTYPE html><html><head><script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-98939871-1","auto"),ga("send","pageview")</script><script async src="https://www.google-analytics.com/analytics.js"></script><script>var _hmt=_hmt||[]</script><script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script><meta charset="utf-8"><title>nodejs使用socket.io实现分布式一对一发送消息 | Cyy&#39;s Blog | 生命不止，折腾不息！</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#3F51B5"><meta name="keywords" content="nodejs,socket.io"><meta name="description" content="最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一对一发送消息的具体实现方法，这里分享一下自己学习使用过程中踩到某些坑和最终实现方法。"><meta name="keywords" content="nodejs,socket.io"><meta property="og:type" content="article"><meta property="og:title" content="nodejs使用socket.io实现分布式一对一发送消息"><meta property="og:url" content="http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/index.html"><meta property="og:site_name" content="Cyy&#39;s Blog"><meta property="og:description" content="最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一对一发送消息的具体实现方法，这里分享一下自己学习使用过程中踩到某些坑和最终实现方法。"><meta property="og:locale" content="zh-CN"><meta property="og:updated_time" content="2017-10-11T02:05:34.485Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="nodejs使用socket.io实现分布式一对一发送消息"><meta name="twitter:description" content="最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一对一发送消息的具体实现方法，这里分享一下自己学习使用过程中踩到某些坑和最终实现方法。"><link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="stylesheet" href="/css/style.css?v=1.6.5"><script>window.lazyScripts=[]</script><meta name="baidu-site-verification" content="MiDIocUaQv"><meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i"><meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7"><meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-8385177684799626",enable_page_level_ads:!0})</script></head><body><div id="loading" class="active"></div><aside id="menu" class="hide"><div class="inner flex-row-vertical"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off"><i class="icon icon-lg icon-close"></i></a><div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)"><div class="brand"><a href="/about" class="avatar waves-effect waves-circle waves-light"><img src="/img/h.jpeg"></a><hgroup class="introduce"><h5 class="nickname">CYY</h5><a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a></hgroup></div></div><div class="scroll-wrap flex-col"><ul class="nav"><li class="waves-block waves-effect"><a href="/"><i class="icon icon-lg icon-home"></i> 主页</a></li><li class="waves-block waves-effect"><a href="/archives"><i class="icon icon-lg icon-archives"></i> 归档</a></li><li class="waves-block waves-effect"><a href="/tags"><i class="icon icon-lg icon-tags"></i> 标签</a></li><li class="waves-block waves-effect"><a href="/categories"><i class="icon icon-lg icon-th-list"></i> 分类</a></li><li class="waves-block waves-effect"><a href="https://github.com/cyyjs" target="_blank"><i class="icon icon-lg icon-github"></i> Github</a></li><li class="waves-block waves-effect"><a href="http://weibo.com/cyyabc" target="_blank"><i class="icon icon-lg icon-weibo"></i> 微博</a></li><li class="waves-block waves-effect"><a href="/about"><i class="icon icon-lg icon-link"></i> 关于我</a></li></ul></div></div></aside><main id="main"><header class="top-header" id="header"><div class="flex-row"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle"><i class="icon icon-lg icon-navicon"></i></a><div class="flex-col header-title ellipsis">nodejs使用socket.io实现分布式一对一发送消息</div><div class="search-wrap" id="search-wrap"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back"><i class="icon icon-lg icon-chevron-left"></i></a> <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search"><i class="icon icon-lg icon-search"></i></a></div><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare"><i class="icon icon-lg icon-share-alt"></i></a></div></header><header class="content-header post-header"><div class="container fade-scale"><h1 class="title">nodejs使用socket.io实现分布式一对一发送消息</h1><h5 class="subtitle"><time datetime="2017-09-27T09:13:53.000Z" itemprop="datePublished" class="page-time">2017-09-27</time><ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul></h5></div></header><div class="container body-wrap"><aside class="post-widget"><nav class="post-toc-wrap" id="post-toc"><h4>TOC</h4><ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、安装依赖包"><span class="post-toc-number">1.</span> <span class="post-toc-text">一、安装依赖包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、socket-io的使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">二、socket.io的使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、使用nginx实现分布式部署"><span class="post-toc-number">3.</span> <span class="post-toc-text">三、使用nginx实现分布式部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四、分布式解决方法"><span class="post-toc-number">4.</span> <span class="post-toc-text">四、分布式解决方法</span></a></li></ol></nav></aside><article id="post-QkkxF6N8eMj7mVKX" class="post-article article-type-post fade" itemprop="blogPost"><div class="post-card"><h1 class="post-card-title">nodejs使用socket.io实现分布式一对一发送消息</h1><div class="post-meta"><time class="post-time" title="2017-09-27 17:13:53" datetime="2017-09-27T09:13:53.000Z" itemprop="datePublished">2017-09-27</time><ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul><span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none"><i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span></span></div><div class="post-content" id="post-content" itemprop="postContent"><p>最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一对一发送消息的具体实现方法，这里分享一下自己学习使用过程中踩到某些坑和最终实现方法。<br><a id="more"></a></p><blockquote><p>要实现的功能:<br>server端数据更新后，发送通知到对应客户端的用户；server是用nodejs写的，并使用了分布式，同时开启了多个实例。</p></blockquote><h3 id="一、安装依赖包"><a href="#一、安装依赖包" class="headerlink" title="一、安装依赖包"></a>一、安装依赖包</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install socket.io</div></pre></td></tr></table></figure><h3 id="二、socket-io的使用"><a href="#二、socket-io的使用" class="headerlink" title="二、socket.io的使用"></a>二、socket.io的使用</h3><p>1、index.js 文件内容</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//index.js</span></div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'http'</span>).Server(app);</div><div class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(server,&#123;</div><div class="line">    <span class="string">"path"</span>:<span class="string">"/notice"</span>  <span class="comment">//修改客户端请求的路径，默认为/socket.io</span></div><div class="line">&#125;);</div><div class="line"><span class="keyword">new</span> (<span class="built_in">require</span>(<span class="string">"./notice"</span>).init)(io); <span class="comment">//传入io</span></div></pre></td></tr></table></figure><p>2、notice.js文件内容</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Notice = <span class="literal">null</span>; </div><div class="line"><span class="keyword">var</span> socketMap  = &#123;&#125;; <span class="comment">//用户对应socket.id</span></div><div class="line"></div><div class="line"><span class="comment">//初始化socket连接</span></div><div class="line">exports.init = <span class="function"><span class="keyword">function</span> (<span class="params">io</span>)</span>&#123;</div><div class="line">    <span class="comment">//连接验证</span></div><div class="line">    io.use(<span class="function"><span class="keyword">function</span>(<span class="params">socket, next</span>)</span>&#123;</div><div class="line">        <span class="comment">//console.log(socket.request.headers.cookie);</span></div><div class="line">        <span class="keyword">var</span> token = socket.request._query.token || <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(validate(token))&#123;</div><div class="line">            socket.request.headers.user = &#123;<span class="attr">userId</span>:userId&#125;;</div><div class="line">            <span class="keyword">return</span> next();</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">return</span> next(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Authentication error'</span>));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;);</div><div class="line">    Notice = io.of(<span class="string">"/notice"</span>).on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> user = socket.handshake.headers.user;</div><div class="line">        <span class="keyword">var</span> user_id = user &amp;&amp; user.userId;</div><div class="line">        <span class="keyword">if</span>(user_id)&#123;</div><div class="line">            socketMap[user_id] = socket.id;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        socket.on(<span class="string">'disconnect'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">delete</span> socketMap[user_id];</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"><span class="comment">//其他模块调用，发送消息</span></div><div class="line">exports.send = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> user_id = data.accountID;</div><div class="line">    <span class="keyword">var</span> socket_id = socketMap[user_id];</div><div class="line">    Notice.to(socket_id).emit(<span class="string">'notice'</span>, data);</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>3、客户端文件</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script src=<span class="string">"/socket.io/socket.io.js"</span>&gt;&lt;/script&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  <span class="keyword">var</span> socket = io(<span class="string">'http://localhost?token=token'</span>);</div><div class="line">  socket.on(<span class="string">'notice'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">  &#125;);</div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure><p>在跨域请求的情况下<code>socket.request.headers.cookie</code>是无法获取到有效的cookie的，所以这里直接从客户端传token过来进行验证。验证通过后，将用户信息存到headers中，客户端连接成功后，取出用户信息，并将用户id与此socket连接对应id存储到全局<code>socketMap</code>变量中，然后外部模块通过调用send方法来发送消息。</p><p>这种情况在单实例情况下是没有问题的，但是如果server开启了多个实例就出问题了。</p><h3 id="三、使用nginx实现分布式部署"><a href="#三、使用nginx实现分布式部署" class="headerlink" title="三、使用nginx实现分布式部署"></a>三、使用nginx实现分布式部署</h3><p>首先需要安装<a href="http://nginx.org/" target="_blank" rel="external">nginx</a>；安装完成后编写配置文件；</p><figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">upstream</span> socket_test &#123;</div><div class="line">        ip_hash;</div><div class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8013</span>;</div><div class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8014</span>;</div><div class="line">&#125;</div><div class="line"><span class="section">server</span> &#123;</div><div class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</div><div class="line">    <span class="attribute">server_name</span> socket.test.com;</div><div class="line">    <span class="attribute">location</span> / &#123;</div><div class="line">        <span class="attribute">proxy_pass</span>              http://socket_test/;</div><div class="line">        <span class="attribute">proxy_set_header</span>        Upgrade <span class="variable">$http_upgrade</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>        Connection <span class="string">"upgrade"</span>;</div><div class="line">        <span class="attribute">proxy_http_version</span>      <span class="number">1</span>.<span class="number">1</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>        Host <span class="variable">$host</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>        X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>启动两个项目实例，分别监听8013和8014端口；<br>然后启动nginx</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo nginx</div></pre></td></tr></table></figure><p>通过测试会发现，消息有时候能收到，有时候收不到。原因是因为客户端请求的时候，会不定的请求服务端两个实例中的一个，如果连接的时候是请求的8013端口的实例，二发送消息是8014端口的实例 ，就会在8014的实例中找不到建立连接的socket。</p><h3 id="四、分布式解决方法"><a href="#四、分布式解决方法" class="headerlink" title="四、分布式解决方法"></a>四、分布式解决方法</h3><p>socket.io官网中提供了使用<a href="https://github.com/socketio/socket.io-redis" target="_blank" rel="external">socket.io-redis</a><br>来解决此方法；socket.io-redis中使用了redis的消息订阅与发布的功能，当有通知发送的时候，会触发onmessage事件，然后会调用broadcast广播。</p><p>接下来将socket.io-redis添加到index.js文件中</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//index.js</span></div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'http'</span>).Server(app);</div><div class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(server,&#123;</div><div class="line">    <span class="string">"path"</span>:<span class="string">"/notice"</span>  <span class="comment">//修改客户端请求的路径，默认为/socket.io</span></div><div class="line">&#125;);</div><div class="line"><span class="keyword">new</span> (<span class="built_in">require</span>(<span class="string">"./notice"</span>).init)(io); <span class="comment">//传入io</span></div><div class="line"><span class="keyword">var</span> redis = <span class="built_in">require</span>(<span class="string">'socket.io-redis'</span>);</div><div class="line">io.adapter(redis(&#123; <span class="attr">host</span>: settings.REDIS_HOST, <span class="attr">port</span>: settings.REDIS_PORT &#125;));</div></pre></td></tr></table></figure><p>然后重启后会发现还是不行，原因是因为在socketMap变量中有时候就找不到对应的user_id;因为是分布式的，所有socketMap变量在两台实例中并不是共享的，所以这里使用redis，在socket建立的时候将user_id对应的socket_id存储到redis中，发送消息的时候从redis中读取socket_id这样就可以了。</p><p>有时候一个用户可能会同时有多个socket连接，所以user_id对应的socket_id就可以是一个数组，发送消息的时候要循环发送，连接断开的时候要只删除对应的socket_id,保留其他建立的连接。</p><p>另外服务器重启时socket会重新建立连接，所以在初始化的的时候要清空redis中所有存储的数据。</p><div style="text-align:right;font-size:12px;color:#666">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div></div><div class="post-footer"><ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/socket-io/">socket.io</a></li></ul><div class="page-reward" style="padding:0;position:absolute;right:95px;top:-21px;margin:0;height:42px"><a id="rewardBtn" href="javascript:;" style="width:42px;height:42px;line-height:42px" class="page-reward-btn waves-effect waves-circle waves-light">赏</a></div><div class="page-share-wrap"><div class="page-share" id="pageShare"><ul class="reset share-icons"><li><a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&title=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博"><i class="icon icon-weibo"></i></a></li><li><a class="weixin share-sns wxFab" href="javascript:;" data-title="微信"><i class="icon icon-weixin"></i></a></li><li><a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&title=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&source=最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一..." data-title=" QQ"><i class="icon icon-qq"></i></a></li><li><a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/" data-title=" Facebook"><i class="icon icon-facebook"></i></a></li><li><a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&via=http://blog.cuiyy.top" data-title=" Twitter"><i class="icon icon-twitter"></i></a></li><li><a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/" data-title=" Google+"><i class="icon icon-google-plus"></i></a></li></ul></div><a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle"><i class="icon icon-share-alt icon-lg"></i></a></div></div></div><nav class="post-nav flex-row flex-justify-between"><div class="waves-block waves-effect prev"><a href="/2017/10/10/Ja5aO9RFlMdvjYBE/" id="post-prev" class="post-nav-link"><div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div><h4 class="title">ssh 免密码登录</h4></a></div><div class="waves-block waves-effect next"><a href="/2017/09/27/pM6JLsCa29henIyW/" id="post-next" class="post-nav-link"><div class="tips">Next<i class="icon icon-angle-right icon-lg icon-pl"></i></div><h4 class="title">GitHub webhooks实现自动部署</h4></a></div></nav><section class="comments" id="comments" style="padding-top:10px"><div id="SOHUCS" sid="nodejs使用socket.io实现分布式一对一发送消息"></div><script>!function(){var t="prod_73601bc3bd5a961a61a973e92e29f169";if((window.innerWidth||document.documentElement.clientWidth)<960)window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=cyr3hjKUE&conf='+t+'"><\/script>');else{!function(t,e){var n=document.getElementsByTagName("head")[0]||document.head||document.documentElement,a=document.createElement("script");a.setAttribute("type","text/javascript"),a.setAttribute("charset","UTF-8"),a.setAttribute("src",t),"function"==typeof e&&(window.attachEvent?a.onreadystatechange=function(){var t=a.readyState;"loaded"!==t&&"complete"!==t||(a.onreadystatechange=null,e())}:a.onload=e),n.appendChild(a)}("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:"cyr3hjKUE",conf:t})})}}()</script></section></article><div id="reward" class="page-modal reward-lay"><a class="close" href="javascript:;"><i class="icon icon-close"></i></a><h3 class="reward-title"><i class="icon icon-quote-left"></i> 买桶泡面~<i class="icon icon-quote-right"></i></h3><ul class="reward-items"><li><img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码"><p>微信</p></li><li><img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码"><p>支付宝</p></li></ul></div></div><footer class="footer"><div class="top"><p><span id="busuanzi_container_site_uv" style="display:none">站点总访客数：<span id="busuanzi_value_site_uv"></span></span> <span id="busuanzi_container_site_pv" style="display:none">站点总访问量：<span id="busuanzi_value_site_pv"></span></span></p><p><span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span> <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span></p></div><div class="bottom"><p><span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span> <span>CYY &copy; 2016 - 2017</span></p></div></footer></main><div class="mask" id="mask"></div><a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a><div class="global-share" id="globalShare"><ul class="reset share-icons"><li><a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&title=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博"><i class="icon icon-weibo"></i></a></li><li><a class="weixin share-sns wxFab" href="javascript:;" data-title="微信"><i class="icon icon-weixin"></i></a></li><li><a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&title=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&source=最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一..." data-title=" QQ"><i class="icon icon-qq"></i></a></li><li><a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/" data-title=" Facebook"><i class="icon icon-facebook"></i></a></li><li><a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&via=http://blog.cuiyy.top" data-title=" Twitter"><i class="icon icon-twitter"></i></a></li><li><a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/" data-title=" Google+"><i class="icon icon-google-plus"></i></a></li></ul></div><div class="page-modal wx-share" id="wxShare"><a class="close" href="javascript:;"><i class="icon icon-close"></i></a><p>扫一扫，分享到微信</p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3aSW4DMQwFUd//0p1tgMByfVIOIKq0Muwe9LwgxOH1wuv5td79+vdKcj1/y4YlQ4aMYxnPcpFryIvT5/O9yZAh4x4GCaMkdK7vIuzae2XIkCHjXRBcf0OCKb9GhgwZMtLA17mLP1mGDBky0iSWF9T6Bbsv5uIyZMg4kME38f+fv9LfkCFDxlGMJ1y1Q14aLuNdyZAhYzSDB7g1hiS3rQSV7EeGDBlDGaTUlaaX5Ne0wfABLEOGjNEMEhbT5Jb/ESRw15oTMmTImMeojZbyg2NtyDUuvcmQIWMoo6Pnjc843qf3ypAhYzSj3xnkqWatkUCeL0OGjNmMWvmsdsRM38uDsgwZMmYz0uL7rsCa3kuKcTJkyJjK6Ixt8c88QeWtAtQSkCFDxggG+TlNOzthl3dcZciQcRujFgr7h7+0hRAX4GTIkDGCQQ6FfAijM/61bdhChgwZ4xhpgtohpQfQVqosQ4aMcYzOIzrf1ML9h3KbDBkyrmSkZ7B+wa7WipAhQ8Y9DB7m0mv66TTqb8iQIWM0I31lfyBsb2tBhgwZUxlPuMgRME1QSWkP1QhlyJAxlJH2BHcNTHR4tWRbhgwZpzP4FveOfPGnoaOkDBkyLmDUksy0hUmGw2pIGTJkyOBJ5jq53dXsZL0CGTJk3MtIBy/SsbM0DZYhQ8Y9jHS0orZ13lTgB0QZMmTcwOCpY+dgxze93mKrqSlDhozzGD9eZUHPtOrgvAAAAABJRU5ErkJggg==" alt="微信分享二维码"></div><script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script><script>var BLOG={ROOT:"/",SHARE:!0,REWARD:!0}</script><script src="/js/main.min.js?v=1.6.5"></script><div class="search-panel" id="search-panel"><ul class="search-result" id="search-result"></ul></div><template id="search-tpl"><li class="item"><a href="{path}" class="waves-block waves-effect"><div class="title ellipsis" title="{title}">{title}</div><div class="flex-row flex-middle"><div class="tags ellipsis">{tags}</div><time class="flex-col time">{date}</time></div></a></li></template><script src="/js/search.min.js?v=1.6.5" async></script><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><script>!function(){var t,e=document.title;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="死鬼去哪里了！",clearTimeout(t)):(document.title="(つェ⊂)咦!又好了!",t=setTimeout(function(){document.title=e},2e3))})}()</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-98939871-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>nodejs使用socket.io实现分布式一对一发送消息 | Cyy&#39;s Blog | 生命不止，折腾不息！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="nodejs,socket.io">
+    <meta name="description" content="最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一对一发送消息的具体实现方法，这里分享一下自己学习使用过程中踩到某些坑和最终实现方法。">
+<meta name="keywords" content="nodejs,socket.io">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nodejs使用socket.io实现分布式一对一发送消息">
+<meta property="og:url" content="http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/index.html">
+<meta property="og:site_name" content="Cyy&#39;s Blog">
+<meta property="og:description" content="最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一对一发送消息的具体实现方法，这里分享一下自己学习使用过程中踩到某些坑和最终实现方法。">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2017-10-11T02:05:34.485Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="nodejs使用socket.io实现分布式一对一发送消息">
+<meta name="twitter:description" content="最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一对一发送消息的具体实现方法，这里分享一下自己学习使用过程中踩到某些坑和最终实现方法。">
+    
+        <link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.5">
+    <script>window.lazyScripts=[]</script>
+    <!-- 百度站长 -->
+    <meta name="baidu-site-verification" content="MiDIocUaQv" />
+    <!-- 搜狗联盟 -->
+    <meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i">
+    <!-- 百度联盟 -->
+    <meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7">
+    <meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502">
+    <!-- 谷歌广告 -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8385177684799626",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/h.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CYY</h5>
+          <a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/cyyjs" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/cyyabc" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">nodejs使用socket.io实现分布式一对一发送消息</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">nodejs使用socket.io实现分布式一对一发送消息</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-09-27T09:13:53.000Z" itemprop="datePublished" class="page-time">
+  2017-09-27
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#一、安装依赖包"><span class="post-toc-number">1.</span> <span class="post-toc-text">一、安装依赖包</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#二、socket-io的使用"><span class="post-toc-number">2.</span> <span class="post-toc-text">二、socket.io的使用</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#三、使用nginx实现分布式部署"><span class="post-toc-number">3.</span> <span class="post-toc-text">三、使用nginx实现分布式部署</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#四、分布式解决方法"><span class="post-toc-number">4.</span> <span class="post-toc-text">四、分布式解决方法</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-QkkxF6N8eMj7mVKX"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">nodejs使用socket.io实现分布式一对一发送消息</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-09-27 17:13:53" datetime="2017-09-27T09:13:53.000Z"  itemprop="datePublished">2017-09-27</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent" style="padding-bottom: 30px;">
+            <p>最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一对一发送消息的具体实现方法，这里分享一下自己学习使用过程中踩到某些坑和最终实现方法。<br><a id="more"></a></p>
+<blockquote>
+<p>要实现的功能:<br>server端数据更新后，发送通知到对应客户端的用户；server是用nodejs写的，并使用了分布式，同时开启了多个实例。</p>
+</blockquote>
+<h3 id="一、安装依赖包"><a href="#一、安装依赖包" class="headerlink" title="一、安装依赖包"></a>一、安装依赖包</h3> <figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install socket.io</div></pre></td></tr></table></figure>
+<h3 id="二、socket-io的使用"><a href="#二、socket-io的使用" class="headerlink" title="二、socket.io的使用"></a>二、socket.io的使用</h3><p>1、index.js 文件内容</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//index.js</span></div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'http'</span>).Server(app);</div><div class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(server,&#123;</div><div class="line">    <span class="string">"path"</span>:<span class="string">"/notice"</span>  <span class="comment">//修改客户端请求的路径，默认为/socket.io</span></div><div class="line">&#125;);</div><div class="line"><span class="keyword">new</span> (<span class="built_in">require</span>(<span class="string">"./notice"</span>).init)(io); <span class="comment">//传入io</span></div></pre></td></tr></table></figure>
+<p>2、notice.js文件内容</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> Notice = <span class="literal">null</span>; </div><div class="line"><span class="keyword">var</span> socketMap  = &#123;&#125;; <span class="comment">//用户对应socket.id</span></div><div class="line"></div><div class="line"><span class="comment">//初始化socket连接</span></div><div class="line">exports.init = <span class="function"><span class="keyword">function</span> (<span class="params">io</span>)</span>&#123;</div><div class="line">    <span class="comment">//连接验证</span></div><div class="line">    io.use(<span class="function"><span class="keyword">function</span>(<span class="params">socket, next</span>)</span>&#123;</div><div class="line">        <span class="comment">//console.log(socket.request.headers.cookie);</span></div><div class="line">        <span class="keyword">var</span> token = socket.request._query.token || <span class="string">""</span>;</div><div class="line">        <span class="keyword">if</span>(validate(token))&#123;</div><div class="line">            socket.request.headers.user = &#123;<span class="attr">userId</span>:userId&#125;;</div><div class="line">            <span class="keyword">return</span> next();</div><div class="line">        &#125;<span class="keyword">else</span>&#123;</div><div class="line">            <span class="keyword">return</span> next(<span class="keyword">new</span> <span class="built_in">Error</span>(<span class="string">'Authentication error'</span>));</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;);</div><div class="line">    Notice = io.of(<span class="string">"/notice"</span>).on(<span class="string">'connection'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">socket</span>) </span>&#123;</div><div class="line">        <span class="keyword">var</span> user = socket.handshake.headers.user;</div><div class="line">        <span class="keyword">var</span> user_id = user &amp;&amp; user.userId;</div><div class="line">        <span class="keyword">if</span>(user_id)&#123;</div><div class="line">            socketMap[user_id] = socket.id;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">        socket.on(<span class="string">'disconnect'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="keyword">delete</span> socketMap[user_id];</div><div class="line">        &#125;);</div><div class="line">    &#125;);</div><div class="line">&#125;</div><div class="line"><span class="comment">//其他模块调用，发送消息</span></div><div class="line">exports.send = <span class="function"><span class="keyword">function</span>(<span class="params">data</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> user_id = data.accountID;</div><div class="line">    <span class="keyword">var</span> socket_id = socketMap[user_id];</div><div class="line">    Notice.to(socket_id).emit(<span class="string">'notice'</span>, data);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>3、客户端文件</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">&lt;script src=<span class="string">"/socket.io/socket.io.js"</span>&gt;&lt;/script&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  <span class="keyword">var</span> socket = io(<span class="string">'http://localhost?token=token'</span>);</div><div class="line">  socket.on(<span class="string">'notice'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">data</span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(data);</div><div class="line">  &#125;);</div><div class="line">&lt;<span class="regexp">/script&gt;</span></div></pre></td></tr></table></figure>
+<p>在跨域请求的情况下<code>socket.request.headers.cookie</code>是无法获取到有效的cookie的，所以这里直接从客户端传token过来进行验证。验证通过后，将用户信息存到headers中，客户端连接成功后，取出用户信息，并将用户id与此socket连接对应id存储到全局<code>socketMap</code>变量中，然后外部模块通过调用send方法来发送消息。</p>
+<p>这种情况在单实例情况下是没有问题的，但是如果server开启了多个实例就出问题了。</p>
+<h3 id="三、使用nginx实现分布式部署"><a href="#三、使用nginx实现分布式部署" class="headerlink" title="三、使用nginx实现分布式部署"></a>三、使用nginx实现分布式部署</h3><p>首先需要安装<a href="http://nginx.org/" target="_blank" rel="external">nginx</a>；安装完成后编写配置文件；</p>
+<figure class="highlight nginx"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="attribute">upstream</span> socket_test &#123;</div><div class="line">        ip_hash;</div><div class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8013</span>;</div><div class="line">        <span class="attribute">server</span> <span class="number">127.0.0.1:8014</span>;</div><div class="line">&#125;</div><div class="line"><span class="section">server</span> &#123;</div><div class="line">    <span class="attribute">listen</span> <span class="number">80</span>;</div><div class="line">    <span class="attribute">server_name</span> socket.test.com;</div><div class="line">    <span class="attribute">location</span> / &#123;</div><div class="line">        <span class="attribute">proxy_pass</span>              http://socket_test/;</div><div class="line">        <span class="attribute">proxy_set_header</span>        Upgrade <span class="variable">$http_upgrade</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>        Connection <span class="string">"upgrade"</span>;</div><div class="line">        <span class="attribute">proxy_http_version</span>      <span class="number">1</span>.<span class="number">1</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>        Host <span class="variable">$host</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>        X-Real-IP <span class="variable">$remote_addr</span>;</div><div class="line">        <span class="attribute">proxy_set_header</span>        X-Forwarded-For <span class="variable">$proxy_add_x_forwarded_for</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>启动两个项目实例，分别监听8013和8014端口；<br>然后启动nginx</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo nginx</div></pre></td></tr></table></figure>
+<p>通过测试会发现，消息有时候能收到，有时候收不到。原因是因为客户端请求的时候，会不定的请求服务端两个实例中的一个，如果连接的时候是请求的8013端口的实例，二发送消息是8014端口的实例 ，就会在8014的实例中找不到建立连接的socket。</p>
+<h3 id="四、分布式解决方法"><a href="#四、分布式解决方法" class="headerlink" title="四、分布式解决方法"></a>四、分布式解决方法</h3><p>socket.io官网中提供了使用<a href="https://github.com/socketio/socket.io-redis" target="_blank" rel="external">socket.io-redis</a><br>来解决此方法；socket.io-redis中使用了redis的消息订阅与发布的功能，当有通知发送的时候，会触发onmessage事件，然后会调用broadcast广播。</p>
+<p>接下来将socket.io-redis添加到index.js文件中</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"> <span class="comment">//index.js</span></div><div class="line"><span class="keyword">var</span> express = <span class="built_in">require</span>(<span class="string">'express'</span>);</div><div class="line"><span class="keyword">var</span> app = express();</div><div class="line"><span class="keyword">var</span> server = <span class="built_in">require</span>(<span class="string">'http'</span>).Server(app);</div><div class="line"><span class="keyword">var</span> io = <span class="built_in">require</span>(<span class="string">'socket.io'</span>)(server,&#123;</div><div class="line">    <span class="string">"path"</span>:<span class="string">"/notice"</span>  <span class="comment">//修改客户端请求的路径，默认为/socket.io</span></div><div class="line">&#125;);</div><div class="line"><span class="keyword">new</span> (<span class="built_in">require</span>(<span class="string">"./notice"</span>).init)(io); <span class="comment">//传入io</span></div><div class="line"><span class="keyword">var</span> redis = <span class="built_in">require</span>(<span class="string">'socket.io-redis'</span>);</div><div class="line">io.adapter(redis(&#123; <span class="attr">host</span>: settings.REDIS_HOST, <span class="attr">port</span>: settings.REDIS_PORT &#125;));</div></pre></td></tr></table></figure>
+<p>然后重启后会发现还是不行，原因是因为在socketMap变量中有时候就找不到对应的user_id;因为是分布式的，所有socketMap变量在两台实例中并不是共享的，所以这里使用redis，在socket建立的时候将user_id对应的socket_id存储到redis中，发送消息的时候从redis中读取socket_id这样就可以了。</p>
+<p>有时候一个用户可能会同时有多个socket连接，所以user_id对应的socket_id就可以是一个数组，发送消息的时候要循环发送，连接断开的时候要只删除对应的socket_id,保留其他建立的连接。</p>
+<p>另外服务器重启时socket会重新建立连接，所以在初始化的的时候要清空redis中所有存储的数据。</p>
+<div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>
+        </div>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/socket-io/">socket.io</a></li></ul>
+
+            
+<div class="page-reward" style="padding: 0;position: absolute;right: 95px;top:-21px;margin: 0;height:42px;">
+    <a id="rewardBtn" href="javascript:;" style="width: 42px;height: 42px;line-height: 42px;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&title=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&title=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&source=最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+    
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/10/10/Ja5aO9RFlMdvjYBE/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">ssh 免密码登录</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/09/27/pM6JLsCa29henIyW/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">GitHub webhooks实现自动部署</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments" style="padding-top: 10px;">
+	<div id="SOHUCS" sid="nodejs使用socket.io实现分布式一对一发送消息"></div>
+	<script type="text/javascript"> 
+		(function(){ 
+		var appid = 'cyr3hjKUE'; 
+		var conf = 'prod_73601bc3bd5a961a61a973e92e29f169'; 
+		var width = window.innerWidth || document.documentElement.clientWidth; 
+		if (width < 960) { 
+		window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+	</script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        买桶泡面~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>CYY &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&title=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&title=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&source=最近在用nodejs实现一个消息通知的功能，其中用到了socket.io；由于初次使用socket.io，在网上查找资料大都是聊天室广播的教程，没有找到一..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《nodejs使用socket.io实现分布式一对一发送消息》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/09/27/QkkxF6N8eMj7mVKX/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACI0lEQVR42u3aSW4DMQwFUd//0p1tgMByfVIOIKq0Muwe9LwgxOH1wuv5td79+vdKcj1/y4YlQ4aMYxnPcpFryIvT5/O9yZAh4x4GCaMkdK7vIuzae2XIkCHjXRBcf0OCKb9GhgwZMtLA17mLP1mGDBky0iSWF9T6Bbsv5uIyZMg4kME38f+fv9LfkCFDxlGMJ1y1Q14aLuNdyZAhYzSDB7g1hiS3rQSV7EeGDBlDGaTUlaaX5Ne0wfABLEOGjNEMEhbT5Jb/ESRw15oTMmTImMeojZbyg2NtyDUuvcmQIWMoo6Pnjc843qf3ypAhYzSj3xnkqWatkUCeL0OGjNmMWvmsdsRM38uDsgwZMmYz0uL7rsCa3kuKcTJkyJjK6Ixt8c88QeWtAtQSkCFDxggG+TlNOzthl3dcZciQcRujFgr7h7+0hRAX4GTIkDGCQQ6FfAijM/61bdhChgwZ4xhpgtohpQfQVqosQ4aMcYzOIzrf1ML9h3KbDBkyrmSkZ7B+wa7WipAhQ8Y9DB7m0mv66TTqb8iQIWM0I31lfyBsb2tBhgwZUxlPuMgRME1QSWkP1QhlyJAxlJH2BHcNTHR4tWRbhgwZpzP4FveOfPGnoaOkDBkyLmDUksy0hUmGw2pIGTJkyOBJ5jq53dXsZL0CGTJk3MtIBy/SsbM0DZYhQ8Y9jHS0orZ13lTgB0QZMmTcwOCpY+dgxze93mKrqSlDhozzGD9eZUHPtOrgvAAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.5"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.5" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

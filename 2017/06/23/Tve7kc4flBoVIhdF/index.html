@@ -1,3 +1,529 @@
-<!DOCTYPE html><html><head><script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-98939871-1","auto"),ga("send","pageview")</script><script async src="https://www.google-analytics.com/analytics.js"></script><script>var _hmt=_hmt||[]</script><script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script><meta charset="utf-8"><title>browsersync 省时的浏览器同步测试工具 | Cyy&#39;s Blog | 生命不止，折腾不息！</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#3F51B5"><meta name="keywords" content="nodejs,自动化"><meta name="description" content="Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改"><meta name="keywords" content="nodejs,自动化"><meta property="og:type" content="article"><meta property="og:title" content="browsersync 省时的浏览器同步测试工具"><meta property="og:url" content="http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/index.html"><meta property="og:site_name" content="Cyy&#39;s Blog"><meta property="og:description" content="Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="http://www.browsersync.cn/img/sync-demo.gif"><meta property="og:updated_time" content="2017-06-23T02:42:16.000Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="browsersync 省时的浏览器同步测试工具"><meta name="twitter:description" content="Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改"><meta name="twitter:image" content="http://www.browsersync.cn/img/sync-demo.gif"><link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="stylesheet" href="/css/style.css?v=1.6.5"><script>window.lazyScripts=[]</script><meta name="baidu-site-verification" content="MiDIocUaQv"><meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i"><meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7"><meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-8385177684799626",enable_page_level_ads:!0})</script></head><body><div id="loading" class="active"></div><aside id="menu" class="hide"><div class="inner flex-row-vertical"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off"><i class="icon icon-lg icon-close"></i></a><div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)"><div class="brand"><a href="/about" class="avatar waves-effect waves-circle waves-light"><img src="/img/h.jpeg"></a><hgroup class="introduce"><h5 class="nickname">CYY</h5><a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a></hgroup></div></div><div class="scroll-wrap flex-col"><ul class="nav"><li class="waves-block waves-effect"><a href="/"><i class="icon icon-lg icon-home"></i> 主页</a></li><li class="waves-block waves-effect"><a href="/archives"><i class="icon icon-lg icon-archives"></i> 归档</a></li><li class="waves-block waves-effect"><a href="/tags"><i class="icon icon-lg icon-tags"></i> 标签</a></li><li class="waves-block waves-effect"><a href="/categories"><i class="icon icon-lg icon-th-list"></i> 分类</a></li><li class="waves-block waves-effect"><a href="https://github.com/cyyjs" target="_blank"><i class="icon icon-lg icon-github"></i> Github</a></li><li class="waves-block waves-effect"><a href="http://weibo.com/cyyabc" target="_blank"><i class="icon icon-lg icon-weibo"></i> 微博</a></li><li class="waves-block waves-effect"><a href="/about"><i class="icon icon-lg icon-link"></i> 关于我</a></li></ul></div></div></aside><main id="main"><header class="top-header" id="header"><div class="flex-row"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle"><i class="icon icon-lg icon-navicon"></i></a><div class="flex-col header-title ellipsis">browsersync 省时的浏览器同步测试工具</div><div class="search-wrap" id="search-wrap"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back"><i class="icon icon-lg icon-chevron-left"></i></a> <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search"><i class="icon icon-lg icon-search"></i></a></div><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare"><i class="icon icon-lg icon-share-alt"></i></a></div></header><header class="content-header post-header"><div class="container fade-scale"><h1 class="title">browsersync 省时的浏览器同步测试工具</h1><h5 class="subtitle"><time datetime="2017-06-23T01:58:32.000Z" itemprop="datePublished" class="page-time">2017-06-23</time><ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul></h5></div></header><div class="container body-wrap"><aside class="post-widget"><nav class="post-toc-wrap" id="post-toc"><h4>TOC</h4><ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装nodejs"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">安装nodejs</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装browsersync"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">安装browsersync</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动-BrowserSync"><span class="post-toc-number">2.</span> <span class="post-toc-text">启动 BrowserSync</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#静态网站"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">静态网站</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#动态网站"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">动态网站</span></a></li></ol></li></ol></nav></aside><article id="post-Tve7kc4flBoVIhdF" class="post-article article-type-post fade" itemprop="blogPost"><div class="post-card"><h1 class="post-card-title">browsersync 省时的浏览器同步测试工具</h1><div class="post-meta"><time class="post-time" title="2017-06-23 09:58:32" datetime="2017-06-23T01:58:32.000Z" itemprop="datePublished">2017-06-23</time><ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul><span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none"><i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span></span></div><div class="post-content" id="post-content" itemprop="postContent"><blockquote><p>Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。<br>更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。<br>您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改动”。<br>无论您是前端还是后端工程师，使用它将提高您30%的工作效率。</p></blockquote><a id="more"></a><figure class="image-bubble"><div class="img-lightbox"><div class="overlay"></div><img src="http://www.browsersync.cn/img/sync-demo.gif" alt=""></div><div class="image-caption"></div></figure><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h4><h4 id="安装browsersync"><a href="#安装browsersync" class="headerlink" title="安装browsersync"></a>安装browsersync</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g browser-sync</div></pre></td></tr></table></figure><h3 id="启动-BrowserSync"><a href="#启动-BrowserSync" class="headerlink" title="启动 BrowserSync"></a>启动 BrowserSync</h3><h4 id="静态网站"><a href="#静态网站" class="headerlink" title="静态网站"></a>静态网站</h4><p>如果您想要监听.css文件, 您需要使用服务器模式。 BrowserSync 将启动一个小型服务器，并提供一个URL来查看您的网站。<br></p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">browser-sync start --server --files <span class="string">"css/*.css"</span></div></pre></td></tr></table></figure><p></p><p><code>--files</code> 路径是相对于运行该命令的项目（目录）</p><p>如果您需要监听多个类型的文件，您只需要用逗号隔开。例如我们再加入一个.html文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># --files 路径是相对于运行该命令的项目（目录） </span></div><div class="line">browser-sync start --server --files <span class="string">"css/*.css, *.html"</span></div><div class="line"><span class="comment"># 如果你的文件层级比较深，您可以考虑使用 **（表示任意目录）匹配，任意目录下任意.css 或 .html文件。 </span></div><div class="line">browser-sync start --server --files <span class="string">"**/*.css, **/*.html"</span></div></pre></td></tr></table></figure><h4 id="动态网站"><a href="#动态网站" class="headerlink" title="动态网站"></a>动态网站</h4><p>如果您已经有其他本地服务器环境PHP或类似的，您需要使用代理模式。 BrowserSync将通过代理URL(localhost:3000)来查看您的网站。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主机名可以是ip或域名</span></div><div class="line"><span class="comment"># --port 指定代理端口</span></div><div class="line">browser-sync start --proxy <span class="string">"127.0.0.1:8080"</span> --port 3001 --files <span class="string">"css/*.css"</span></div></pre></td></tr></table></figure></div><div class="post-footer"><ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自动化/">自动化</a></li></ul><div class="page-reward" style="padding:0;position:absolute;right:95px;top:-21px;margin:0;height:42px"><a id="rewardBtn" href="javascript:;" style="width:42px;height:42px;line-height:42px" class="page-reward-btn waves-effect waves-circle waves-light">赏</a></div><div class="page-share-wrap"><div class="page-share" id="pageShare"><ul class="reset share-icons"><li><a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&title=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博"><i class="icon icon-weibo"></i></a></li><li><a class="weixin share-sns wxFab" href="javascript:;" data-title="微信"><i class="icon icon-weixin"></i></a></li><li><a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&title=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&source=
-Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersy..." data-title=" QQ"><i class="icon icon-qq"></i></a></li><li><a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/" data-title=" Facebook"><i class="icon icon-facebook"></i></a></li><li><a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&via=http://blog.cuiyy.top" data-title=" Twitter"><i class="icon icon-twitter"></i></a></li><li><a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/" data-title=" Google+"><i class="icon icon-google-plus"></i></a></li></ul></div><a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle"><i class="icon icon-share-alt icon-lg"></i></a></div></div></div><nav class="post-nav flex-row flex-justify-between"><div class="waves-block waves-effect prev"><a href="/2017/06/23/ujZ8WMuDA7TISLvv/" id="post-prev" class="post-nav-link"><div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div><h4 class="title">nodejs http.request 设置超时</h4></a></div><div class="waves-block waves-effect next"><a href="/2017/06/20/Ga3g8f89sQ1zEnJ9/" id="post-next" class="post-nav-link"><div class="tips">Next<i class="icon icon-angle-right icon-lg icon-pl"></i></div><h4 class="title">nodemon</h4></a></div></nav><section class="comments" id="comments" style="padding-top:10px"><div id="SOHUCS" sid="browsersync 省时的浏览器同步测试工具"></div><script>!function(){var t="prod_73601bc3bd5a961a61a973e92e29f169";if((window.innerWidth||document.documentElement.clientWidth)<960)window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=cyr3hjKUE&conf='+t+'"><\/script>');else{!function(t,e){var n=document.getElementsByTagName("head")[0]||document.head||document.documentElement,a=document.createElement("script");a.setAttribute("type","text/javascript"),a.setAttribute("charset","UTF-8"),a.setAttribute("src",t),"function"==typeof e&&(window.attachEvent?a.onreadystatechange=function(){var t=a.readyState;"loaded"!==t&&"complete"!==t||(a.onreadystatechange=null,e())}:a.onload=e),n.appendChild(a)}("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:"cyr3hjKUE",conf:t})})}}()</script></section></article><div id="reward" class="page-modal reward-lay"><a class="close" href="javascript:;"><i class="icon icon-close"></i></a><h3 class="reward-title"><i class="icon icon-quote-left"></i> 买桶泡面~<i class="icon icon-quote-right"></i></h3><ul class="reward-items"><li><img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码"><p>微信</p></li><li><img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码"><p>支付宝</p></li></ul></div></div><footer class="footer"><div class="top"><p><span id="busuanzi_container_site_uv" style="display:none">站点总访客数：<span id="busuanzi_value_site_uv"></span></span> <span id="busuanzi_container_site_pv" style="display:none">站点总访问量：<span id="busuanzi_value_site_pv"></span></span></p><p><span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span> <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span></p></div><div class="bottom"><p><span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span> <span>CYY &copy; 2016 - 2017</span></p></div></footer></main><div class="mask" id="mask"></div><a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a><div class="global-share" id="globalShare"><ul class="reset share-icons"><li><a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&title=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博"><i class="icon icon-weibo"></i></a></li><li><a class="weixin share-sns wxFab" href="javascript:;" data-title="微信"><i class="icon icon-weixin"></i></a></li><li><a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&title=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&source=
-Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersy..." data-title=" QQ"><i class="icon icon-qq"></i></a></li><li><a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/" data-title=" Facebook"><i class="icon icon-facebook"></i></a></li><li><a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&via=http://blog.cuiyy.top" data-title=" Twitter"><i class="icon icon-twitter"></i></a></li><li><a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/" data-title=" Google+"><i class="icon icon-google-plus"></i></a></li></ul></div><div class="page-modal wx-share" id="wxShare"><a class="close" href="javascript:;"><i class="icon icon-close"></i></a><p>扫一扫，分享到微信</p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACD0lEQVR42u3aQZKDQAgF0Nz/0s4JEj+gUyU+V6mKafu5IDTw+cTXEVzf7vy22u+nfO64MDAwHsuYbC7f7nz9kxeEgYHxAkayieTbBNZb+WTPGBgYGON7ch4GBgbGtYxemK6mjBgYGBj5ITYPoNVS2r+exTEwMB7ImITRuz/f0t/AwMB4FOMoXpNEsHeUjXaFgYGxmpEHuNHxcl70TxJNDAyM1YzqovMiWvKr/OiLgYGxmzEZ8ErGLPLRinxEDAMD422M34A8HcwPsXlRr1x6w8DAWMq4qpOQNCB77cxRVouBgbGUUR10SIJp/tsqGAMD422MXgo4D5q3nMUxMDAWMZJt9TY0GfO6oBOLgYGxmjFpW/aSxWqhrTBmgYGBsY6RHDXzVHK+0XLDAAMDYylj0nSsJoK91xQNdmBgYLyAMXlwrwxXbUUUOqgYGBjrGJOyVy90Nov+rb8EDAyMrYwjvq6i9oY5ovELDAyMRYw8BueH2zxlnI9lYGBgvJPRO1jm4bIX6MsBFwMDYzUjx+ThsvptTsXAwNjNOIrXtUEzf2UnbAwMjNWMebCbbDG/v7cOBgbGJka1AZDfUy2o9dbHwMB4D6Ma+K5tQOb/ACdncQwMDIw4UFZHLqKQmvgwMDAw4gQuD8GTAH1ZwMXAwHgII398UrLvldhGa2JgYKxmVPOu6iMLcx/FEQ0MDIwXMP4ARM+8KgsNrO8AAAAASUVORK5CYII=" alt="微信分享二维码"></div><script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script><script>var BLOG={ROOT:"/",SHARE:!0,REWARD:!0}</script><script src="/js/main.min.js?v=1.6.5"></script><div class="search-panel" id="search-panel"><ul class="search-result" id="search-result"></ul></div><template id="search-tpl"><li class="item"><a href="{path}" class="waves-block waves-effect"><div class="title ellipsis" title="{title}">{title}</div><div class="flex-row flex-middle"><div class="tags ellipsis">{tags}</div><time class="flex-col time">{date}</time></div></a></li></template><script src="/js/search.min.js?v=1.6.5" async></script><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><script>!function(){var t,e=document.title;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="死鬼去哪里了！",clearTimeout(t)):(document.title="(つェ⊂)咦!又好了!",t=setTimeout(function(){document.title=e},2e3))})}()</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-98939871-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>browsersync 省时的浏览器同步测试工具 | Cyy&#39;s Blog | 生命不止，折腾不息！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="nodejs,自动化">
+    <meta name="description" content="Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改">
+<meta name="keywords" content="nodejs,自动化">
+<meta property="og:type" content="article">
+<meta property="og:title" content="browsersync 省时的浏览器同步测试工具">
+<meta property="og:url" content="http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/index.html">
+<meta property="og:site_name" content="Cyy&#39;s Blog">
+<meta property="og:description" content="Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="http://www.browsersync.cn/img/sync-demo.gif">
+<meta property="og:updated_time" content="2017-06-23T02:42:16.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="browsersync 省时的浏览器同步测试工具">
+<meta name="twitter:description" content="Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改">
+<meta name="twitter:image" content="http://www.browsersync.cn/img/sync-demo.gif">
+    
+        <link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.5">
+    <script>window.lazyScripts=[]</script>
+    <!-- 百度站长 -->
+    <meta name="baidu-site-verification" content="MiDIocUaQv" />
+    <!-- 搜狗联盟 -->
+    <meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i">
+    <!-- 百度联盟 -->
+    <meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7">
+    <meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502">
+    <!-- 谷歌广告 -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8385177684799626",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/h.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CYY</h5>
+          <a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/cyyjs" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/cyyabc" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">browsersync 省时的浏览器同步测试工具</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">browsersync 省时的浏览器同步测试工具</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-06-23T01:58:32.000Z" itemprop="datePublished" class="page-time">
+  2017-06-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#安装"><span class="post-toc-number">1.</span> <span class="post-toc-text">安装</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装nodejs"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">安装nodejs</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#安装browsersync"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">安装browsersync</span></a></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#启动-BrowserSync"><span class="post-toc-number">2.</span> <span class="post-toc-text">启动 BrowserSync</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#静态网站"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">静态网站</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#动态网站"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">动态网站</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-Tve7kc4flBoVIhdF"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">browsersync 省时的浏览器同步测试工具</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-06-23 09:58:32" datetime="2017-06-23T01:58:32.000Z"  itemprop="datePublished">2017-06-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent" style="padding-bottom: 30px;">
+            <blockquote>
+<p>Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。<br>更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。<br>您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改动”。<br>无论您是前端还是后端工程师，使用它将提高您30%的工作效率。</p>
+</blockquote>
+<a id="more"></a>
+<figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="http://www.browsersync.cn/img/sync-demo.gif" alt="" title=""> </div> <div class="image-caption"></div> </figure>
+
+<h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h4><h4 id="安装browsersync"><a href="#安装browsersync" class="headerlink" title="安装browsersync"></a>安装browsersync</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g browser-sync</div></pre></td></tr></table></figure>
+<h3 id="启动-BrowserSync"><a href="#启动-BrowserSync" class="headerlink" title="启动 BrowserSync"></a>启动 BrowserSync</h3><h4 id="静态网站"><a href="#静态网站" class="headerlink" title="静态网站"></a>静态网站</h4><p>如果您想要监听.css文件, 您需要使用服务器模式。 BrowserSync 将启动一个小型服务器，并提供一个URL来查看您的网站。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">browser-sync start --server --files <span class="string">"css/*.css"</span></div></pre></td></tr></table></figure></p>
+<p><code>--files</code> 路径是相对于运行该命令的项目（目录） </p>
+<p>如果您需要监听多个类型的文件，您只需要用逗号隔开。例如我们再加入一个.html文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># --files 路径是相对于运行该命令的项目（目录） </span></div><div class="line">browser-sync start --server --files <span class="string">"css/*.css, *.html"</span></div><div class="line"><span class="comment"># 如果你的文件层级比较深，您可以考虑使用 **（表示任意目录）匹配，任意目录下任意.css 或 .html文件。 </span></div><div class="line">browser-sync start --server --files <span class="string">"**/*.css, **/*.html"</span></div></pre></td></tr></table></figure>
+<h4 id="动态网站"><a href="#动态网站" class="headerlink" title="动态网站"></a>动态网站</h4><p>如果您已经有其他本地服务器环境PHP或类似的，您需要使用代理模式。 BrowserSync将通过代理URL(localhost:3000)来查看您的网站。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主机名可以是ip或域名</span></div><div class="line"><span class="comment"># --port 指定代理端口</span></div><div class="line">browser-sync start --proxy <span class="string">"127.0.0.1:8080"</span> --port 3001 --files <span class="string">"css/*.css"</span></div></pre></td></tr></table></figure>
+        </div>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/自动化/">自动化</a></li></ul>
+
+            
+<div class="page-reward" style="padding: 0;position: absolute;right: 95px;top:-21px;margin: 0;height:42px;">
+    <a id="rewardBtn" href="javascript:;" style="width: 42px;height: 42px;line-height: 42px;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&title=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&title=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&source=
+Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersy..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+    
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2017/06/23/ujZ8WMuDA7TISLvv/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">nodejs http.request 设置超时</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/06/20/Ga3g8f89sQ1zEnJ9/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">nodemon</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments" style="padding-top: 10px;">
+	<div id="SOHUCS" sid="browsersync 省时的浏览器同步测试工具"></div>
+	<script type="text/javascript"> 
+		(function(){ 
+		var appid = 'cyr3hjKUE'; 
+		var conf = 'prod_73601bc3bd5a961a61a973e92e29f169'; 
+		var width = window.innerWidth || document.documentElement.clientWidth; 
+		if (width < 960) { 
+		window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+	</script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        买桶泡面~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>CYY &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&title=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&title=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&source=
+Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。更重要的是 Browsersy..." data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《browsersync 省时的浏览器同步测试工具》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACD0lEQVR42u3aQZKDQAgF0Nz/0s4JEj+gUyU+V6mKafu5IDTw+cTXEVzf7vy22u+nfO64MDAwHsuYbC7f7nz9kxeEgYHxAkayieTbBNZb+WTPGBgYGON7ch4GBgbGtYxemK6mjBgYGBj5ITYPoNVS2r+exTEwMB7ImITRuz/f0t/AwMB4FOMoXpNEsHeUjXaFgYGxmpEHuNHxcl70TxJNDAyM1YzqovMiWvKr/OiLgYGxmzEZ8ErGLPLRinxEDAMD422M34A8HcwPsXlRr1x6w8DAWMq4qpOQNCB77cxRVouBgbGUUR10SIJp/tsqGAMD422MXgo4D5q3nMUxMDAWMZJt9TY0GfO6oBOLgYGxmjFpW/aSxWqhrTBmgYGBsY6RHDXzVHK+0XLDAAMDYylj0nSsJoK91xQNdmBgYLyAMXlwrwxXbUUUOqgYGBjrGJOyVy90Nov+rb8EDAyMrYwjvq6i9oY5ovELDAyMRYw8BueH2zxlnI9lYGBgvJPRO1jm4bIX6MsBFwMDYzUjx+ThsvptTsXAwNjNOIrXtUEzf2UnbAwMjNWMebCbbDG/v7cOBgbGJka1AZDfUy2o9dbHwMB4D6Ma+K5tQOb/ACdncQwMDIw4UFZHLqKQmvgwMDAw4gQuD8GTAH1ZwMXAwHgII398UrLvldhGa2JgYKxmVPOu6iMLcx/FEQ0MDIwXMP4ARM+8KgsNrO8AAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.5"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.5" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
