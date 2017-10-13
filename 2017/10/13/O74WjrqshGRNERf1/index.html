@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-98939871-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>MongoDB开启权限验证的方法 | Cyy&#39;s Blog | 生命不止，折腾不息！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="mongodb">
+    <meta name="description" content="基本角色 root  这是超级管理员 userAdminAnyDatabase 这个角色拥有分配角色和用户的权限，但没有查写的缺陷 readWrite  有读写权限 read    有读权限  创建一个超级用户123456789use admindb.createUser(&amp;#123;    user: &quot;root&quot;,    pwd: &quot;cyy_mongo&quot;,    roles: [">
+<meta name="keywords" content="mongodb">
+<meta property="og:type" content="article">
+<meta property="og:title" content="MongoDB开启权限验证的方法">
+<meta property="og:url" content="http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/index.html">
+<meta property="og:site_name" content="Cyy&#39;s Blog">
+<meta property="og:description" content="基本角色 root  这是超级管理员 userAdminAnyDatabase 这个角色拥有分配角色和用户的权限，但没有查写的缺陷 readWrite  有读写权限 read    有读权限  创建一个超级用户123456789use admindb.createUser(&amp;#123;    user: &quot;root&quot;,    pwd: &quot;cyy_mongo&quot;,    roles: [">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1fkggtqchopj30e80e8t8z.jpg">
+<meta property="og:updated_time" content="2017-10-13T03:39:07.235Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="MongoDB开启权限验证的方法">
+<meta name="twitter:description" content="基本角色 root  这是超级管理员 userAdminAnyDatabase 这个角色拥有分配角色和用户的权限，但没有查写的缺陷 readWrite  有读写权限 read    有读权限  创建一个超级用户123456789use admindb.createUser(&amp;#123;    user: &quot;root&quot;,    pwd: &quot;cyy_mongo&quot;,    roles: [">
+<meta name="twitter:image" content="https://ws2.sinaimg.cn/large/006tKfTcly1fkggtqchopj30e80e8t8z.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.5">
+    <script>window.lazyScripts=[]</script>
+    <!-- 百度站长 -->
+    <meta name="baidu-site-verification" content="MiDIocUaQv" />
+    <!-- 搜狗联盟 -->
+    <meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i">
+    <!-- 百度联盟 -->
+    <meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7">
+    <meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502">
+    <!-- 谷歌广告 -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8385177684799626",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/h.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CYY</h5>
+          <a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/cyyjs" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://weibo.com/cyyabc" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">MongoDB开启权限验证的方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">MongoDB开启权限验证的方法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-10-13T03:39:07.000Z" itemprop="datePublished" class="page-time">
+  2017-10-13
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#基本角色"><span class="post-toc-number">1.</span> <span class="post-toc-text">基本角色</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#创建一个超级用户"><span class="post-toc-number">2.</span> <span class="post-toc-text">创建一个超级用户</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#开启认证"><span class="post-toc-number">3.</span> <span class="post-toc-text">开启认证</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#权限登录"><span class="post-toc-number">4.</span> <span class="post-toc-text">权限登录</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#其他"><span class="post-toc-number">5.</span> <span class="post-toc-text">其他</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看当前用户的权限"><span class="post-toc-number">5.1.</span> <span class="post-toc-text">查看当前用户的权限</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#创建一般用户，也是用createUser"><span class="post-toc-number">5.2.</span> <span class="post-toc-text">创建一般用户，也是用createUser</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改密码"><span class="post-toc-number">5.3.</span> <span class="post-toc-text">修改密码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#查看用户信息"><span class="post-toc-number">5.4.</span> <span class="post-toc-text">查看用户信息</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#修改密码和用户信息"><span class="post-toc-number">5.5.</span> <span class="post-toc-text">修改密码和用户信息</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-O74WjrqshGRNERf1"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">MongoDB开启权限验证的方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-10-13 11:39:07" datetime="2017-10-13T03:39:07.000Z"  itemprop="datePublished">2017-10-13</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent" style="padding-bottom: 30px;">
+            <p><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws2.sinaimg.cn/large/006tKfTcly1fkggtqchopj30e80e8t8z.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure></p>
+<h2 id="基本角色"><a href="#基本角色" class="headerlink" title="基本角色"></a>基本角色</h2><ul>
+<li><code>root</code>  这是超级管理员</li>
+<li><code>userAdminAnyDatabase</code> 这个角色拥有分配角色和用户的权限，但没有查写的缺陷</li>
+<li><code>readWrite</code>  有读写权限</li>
+<li><code>read</code>    有读权限</li>
+</ul>
+<h2 id="创建一个超级用户"><a href="#创建一个超级用户" class="headerlink" title="创建一个超级用户"></a>创建一个超级用户</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">use admin</div><div class="line">db.createUser(&#123;</div><div class="line">    user: <span class="string">"root"</span>,</div><div class="line">    pwd: <span class="string">"cyy_mongo"</span>,</div><div class="line">    roles: [&#123;</div><div class="line">      <span class="string">"role"</span> : <span class="string">"root"</span>,</div><div class="line">      <span class="string">"db"</span> : <span class="string">"admin"</span> </div><div class="line">    &#125;]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>db是指定数据库的名字，admin是管理数据库。</p>
+<h2 id="开启认证"><a href="#开启认证" class="headerlink" title="开启认证"></a>开启认证</h2><p>进入<code>mongod.conf</code>配置文件，将<code>auth</code> 改为<code>true</code>；<br>重启<code>mongo</code>服务；</p>
+<h2 id="权限登录"><a href="#权限登录" class="headerlink" title="权限登录"></a>权限登录</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">mongo --host xxx -u adminUserName -p userPassword --authenticationDatabase admin</div></pre></td></tr></table></figure>
+<h2 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h2><h3 id="查看当前用户的权限"><a href="#查看当前用户的权限" class="headerlink" title="查看当前用户的权限"></a>查看当前用户的权限</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">db.runCommand(&#123;</div><div class="line">    usersInfo:<span class="string">"userName"</span>,</div><div class="line">    showPrivileges:<span class="literal">true</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="创建一般用户，也是用createUser"><a href="#创建一般用户，也是用createUser" class="headerlink" title="创建一般用户，也是用createUser"></a>创建一般用户，也是用createUser</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">db.createUser(&#123;</div><div class="line">    user:<span class="string">"user1"</span>,</div><div class="line">    pwd:<span class="string">"12345"</span>,</div><div class="line">    roles:[</div><div class="line">      &#123;<span class="attr">role</span>:<span class="string">"read"</span>,<span class="attr">db</span>:<span class="string">"db1"</span>&#125;,</div><div class="line">      &#123;<span class="attr">role</span>:<span class="string">"read"</span>,<span class="attr">db</span>:<span class="string">"db2"</span>&#125;,</div><div class="line">      &#123;<span class="attr">role</span>:<span class="string">"read"</span>,<span class="attr">db</span>:<span class="string">"db3"</span>&#125;</div><div class="line">    ]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<h3 id="修改密码"><a href="#修改密码" class="headerlink" title="修改密码"></a>修改密码</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">use admin</div><div class="line">db.changeUserPassword(<span class="string">"username"</span>, <span class="string">"xxx"</span>)</div></pre></td></tr></table></figure>
+<h3 id="查看用户信息"><a href="#查看用户信息" class="headerlink" title="查看用户信息"></a>查看用户信息</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">db.runCommand(&#123;<span class="attr">usersInfo</span>:<span class="string">"userName"</span>&#125;)</div></pre></td></tr></table></figure>
+<h3 id="修改密码和用户信息"><a href="#修改密码和用户信息" class="headerlink" title="修改密码和用户信息"></a>修改密码和用户信息</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">db.runCommand(&#123;</div><div class="line">    updateUser:<span class="string">"username"</span>,</div><div class="line">    pwd:<span class="string">"xxx"</span>,</div><div class="line">    customData:&#123;<span class="attr">title</span>:<span class="string">"xxx"</span>&#125;</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>
+        </div>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/mongodb/">mongodb</a></li></ul>
+
+            
+<div class="page-reward" style="padding: 0;position: absolute;right: 95px;top:-21px;margin: 0;height:42px;">
+    <a id="rewardBtn" href="javascript:;" style="width: 42px;height: 42px;line-height: 42px;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/&title=《MongoDB开启权限验证的方法》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/&title=《MongoDB开启权限验证的方法》 — Cyy's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MongoDB开启权限验证的方法》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+    
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/10/12/dVIMLDDUxriU57uW/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">为了遇见你</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+
+
+
+
+
+
+
+
+
+<section class="comments" id="comments" style="padding-top: 10px;">
+	<div id="SOHUCS" sid="MongoDB开启权限验证的方法"></div>
+	<script type="text/javascript"> 
+		(function(){ 
+		var appid = 'cyr3hjKUE'; 
+		var conf = 'prod_73601bc3bd5a961a61a973e92e29f169'; 
+		var width = window.innerWidth || document.documentElement.clientWidth; 
+		if (width < 960) { 
+		window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){window.changyan.api.config({appid:appid,conf:conf})}); } })(); 
+	</script>
+</section>
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        买桶泡面~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>CYY &copy; 2016 - 2017</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/&title=《MongoDB开启权限验证的方法》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/&title=《MongoDB开启权限验证的方法》 — Cyy's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《MongoDB开启权限验证的方法》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/10/13/O74WjrqshGRNERf1/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACMElEQVR42u3aS27DMAwFwNz/0uk2QGvlUVSCWhqvAsOVNV6w/OjxiK/ny/V65+r37+fHq43vL7swMDBuy3gOr/EzycrJCtX3/vF2DAyMAxjJJsabGz+ZPJ+scHkfAwMDo/h7HNDn3oWBgYFRXXoOVk06MTAwMKpFbL+g7XyyZbU4BgbGDRl51/37vz8y38DAwLgV41m88oSvEy7Lu8LAwNiakQe4ZMSYrLYq4GJgYJzDGG+o32ibGwnku8LAwDiBsapOrH6IHJMfy8DAwDiBkYe2ZLv5MYvkXZPfGwMDY2tGtR3WBydpYgTDwMDYjtFJ9ebCaH7UrBCCMTAwtmbkCWLe6O+02Ob+FgMD4wRGvpXkBZ1CtDNCwMDA2JWRtOM7LbZOWy35WIWpAgYGxm0ZnVIz2UQn7FbvYGBg7MqYa5xVW/lJsZof5rhMDTEwMI5h5M2v/vGv8V8VGn8YGBgHMPLULU8Tq63/uSL2st2GgYGxEaN/VKt6hGIurJdrcQwMjO0Y/aZ/nkRWBwmF1TAwMA5gVBtqScE518ibSyUxMDBOYOQFbSe8RllqsUWIgYGxN6MzSuwXqHNhfdl8AwMD4yaMuTCX38m3mA81ywNODAyMLRitI1mLjoslqeebhiAGBsYBjOppq7WDhPw/wJtaHAMDAyPYRILpt+pap0UwMDCOZ3TSu3wU+vGAi4GB8S8ZnWHAJ9j5GBUDA+MERjXvGgfopLk2V74uOK6BgYFxP8YPSJJBz58LhdUAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.5"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.5" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
