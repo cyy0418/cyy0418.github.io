@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.cuiyy.top/"/>
-  <updated>2017-10-13T03:40:10.866Z</updated>
+  <updated>2017-10-16T09:52:41.468Z</updated>
   <id>http://blog.cuiyy.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Weex 项目 Android部署</title>
+    <link href="http://blog.cuiyy.top/2017/10/16/0ySGeMATlDSbikLM/"/>
+    <id>http://blog.cuiyy.top/2017/10/16/0ySGeMATlDSbikLM/</id>
+    <published>2017-10-16T09:52:41.000Z</published>
+    <updated>2017-10-16T09:52:41.468Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="环境要求"><a href="#环境要求" class="headerlink" title="环境要求"></a>环境要求</h2><p>1、安装 <a href="https://developer.android.com/studio/install.html" target="_blank" rel="external">Android Studio</a>或者 <a href="https://developer.android.com/studio/releases/sdk-tools.html" target="_blank" rel="external">Android SDK</a></p><p>2、 安装 <code>Android SDK Build-Tools 23.0.2</code>版本</p><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws4.sinaimg.cn/large/006tNc79ly1fkk7rwkl1vj30wu0owgpy.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><br>打开<code>Android Studio</code>&gt;<code>Tools</code>&gt;<code>Android</code>&gt;<code>SDK Manager</code>，选择<code>SDK Tools</code>选项， 选择<code>Show Package Details</code>; 找到 <code>23.0.2</code>勾选并安装。<br><br><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws3.sinaimg.cn/large/006tNc79ly1fkk7wozlbqj31jq11aalh.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><p>3、配置环境变量,<br>执行<code>vim ~/.bash_profile</code> 增加如下代码：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> ANDROID_HOME=/Users/you/Library/Android/sdk</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;PATH&#125;</span>:<span class="variable">$&#123;ANDROID_HOME&#125;</span>/tools</div><div class="line"><span class="built_in">export</span> PATH=<span class="variable">$&#123;PATH&#125;</span>:<span class="variable">$&#123;ANDROID_HOME&#125;</span>/platform-tools</div></pre></td></tr></table></figure></p><p>保存后执行<code>resource ~/.bash_profile</code>,使修改生效；<br>如果你用了其他终端，如『zsh』，可将 <code>. ~/.bash_profile</code>命令添加到<code>~/.zshrc</code>中；</p><h2 id="jdk-安装"><a href="#jdk-安装" class="headerlink" title="jdk 安装"></a>jdk 安装</h2><p>下载安装<a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html" target="_blank" rel="external">jdk 8</a>，如果安装了9版本会在运行时，出现编译失败问题，如下图：</p><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws1.sinaimg.cn/large/006tNc79ly1fkk6ux0sfbj30hj08c75h.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><p>如果需要多个jdk版本可添加别名，实现快速切换使用；可在<code>.bash_profile</code>中增加如下代码<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">export</span> JAVA_8_HOME=`/usr/libexec/java_home -v 1.8`</div><div class="line"><span class="built_in">export</span> JAVA_9_HOME=`/usr/libexec/java_home -v 9`</div><div class="line"><span class="built_in">alias</span> jdk8=<span class="string">"export JAVA_HOME=<span class="variable">$JAVA_8_HOME</span>"</span></div><div class="line"><span class="built_in">alias</span> jdk9=<span class="string">"export JAVA_HOME=<span class="variable">$JAVA_9_HOME</span>"</span></div></pre></td></tr></table></figure></p><p>此时可通过<code>jdk8</code>、<code>jdk9</code>随意切换版本。</p><h2 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h2><p>一切准备就绪后在终端运行以下命令，增加安卓端支持：<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">weex platform add android</div><div class="line">weex run android</div></pre></td></tr></table></figure></p><p>运行过程中会下载一堆的jar包；<br>并会出现以下错误：</p><p><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws3.sinaimg.cn/large/006tNc79ly1fkk6ulgqvhj30h6048gm9.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><br>提示缺少安卓设备，我们可以在<code>Android Studio</code>中设置虚拟机，也可以用USB连接安卓手机，并打开调试模式，然后重新执行<code>weex run android</code>;</p><p><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws3.sinaimg.cn/large/006tNc79ly1fkk8f8c5f7j309b03njrn.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><br>如果运行成功，可在手机上看到生成的程序，并自动打开。</p><p>注：有些手机可能会有一些权限问题导致不能自动安装成功，需要响应的设置才行。</p><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h2 id=&quot;环境要求&quot;&gt;&lt;a href=&quot;#环境要求&quot; class=&quot;headerlink&quot; title=&quot;环境要求&quot;&gt;&lt;/a&gt;环境要求&lt;/h2&gt;&lt;p&gt;1、安装 &lt;a href=&quot;https://developer.android.com/studio/install.htm
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="weex" scheme="http://blog.cuiyy.top/tags/weex/"/>
+    
+  </entry>
   
   <entry>
     <title>MongoDB开启权限验证的方法</title>
