@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.cuiyy.top/"/>
-  <updated>2017-10-16T09:52:41.468Z</updated>
+  <updated>2017-10-17T10:20:50.424Z</updated>
   <id>http://blog.cuiyy.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>前端mac系统重装之后</title>
+    <link href="http://blog.cuiyy.top/2017/10/17/etb9IVimFgncBxLQ/"/>
+    <id>http://blog.cuiyy.top/2017/10/17/etb9IVimFgncBxLQ/</id>
+    <published>2017-10-17T10:20:50.000Z</published>
+    <updated>2017-10-17T10:20:50.424Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws1.sinaimg.cn/large/006tNc79ly1fke3s9cr5qj30c00aa755.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><p>最近刚更新了 macOS High Sierra，更新过程非常坎坷，最后终于安装成功了，但是曾经装的软件什么的都没有了，需要重新安装，这里列出我所安装的软件列表：</p><h3 id="系统常用"><a href="#系统常用" class="headerlink" title="系统常用"></a>系统常用</h3><ul><li>chrome浏览器</li><li><a href="https://srf.baidu.com/input/mac.html" target="_blank" rel="external">百度输入法</a></li><li>Magnet 分屏软件</li><li>iPic 图片上传神器</li><li>全能解压</li><li>Alfred</li><li><a href="http://sipapp.io/" target="_blank" rel="external">Sip 拾色工具</a></li><li>1Password</li></ul><h3 id="社交"><a href="#社交" class="headerlink" title="社交"></a>社交</h3><ul><li><a href="http://weixin.qq.com/" target="_blank" rel="external">微信</a></li><li><a href="http://im.qq.com/macqq/" target="_blank" rel="external">qq</a></li><li><a href="https://im.dingtalk.com/" target="_blank" rel="external">钉钉</a></li></ul><h3 id="写作笔记"><a href="#写作笔记" class="headerlink" title="写作笔记"></a>写作笔记</h3><ul><li><a href="http://note.youdao.com/" target="_blank" rel="external">有道云笔记</a></li><li><a href="https://www.yinxiang.com/" target="_blank" rel="external">印象笔记</a></li></ul><h3 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h3><ul><li><a href="http://www.sublimetext.com/" target="_blank" rel="external">Sublime Text 3</a> (<a href="https://packagecontrol.io/installation" target="_blank" rel="external">package control</a>)</li><li><a href="https://code.visualstudio.com/" target="_blank" rel="external">VScode</a></li></ul><h3 id="Shell增强"><a href="#Shell增强" class="headerlink" title="Shell增强"></a>Shell增强</h3><ul><li><a href="http://ohmyz.sh/" target="_blank" rel="external">oh my zsh</a></li><li><a href="https://brew.sh/" target="_blank" rel="external">Homebrew</a></li><li>wget (brew install wget)</li><li>autojump (brew install autojump)<br>如果link失败可执行</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chown -R $(whoami) /usr/local/share/</div></pre></td></tr></table></figure><h3 id="代码管理"><a href="#代码管理" class="headerlink" title="代码管理"></a>代码管理</h3><ul><li><a href="https://git-scm.com/" target="_blank" rel="external">Git</a><br>生成KEY：<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git config --global user.name “xx”</div><div class="line">git config --global user.email “x@gmail.com"</div><div class="line">ssh-keygen -t rsa -C “xx@gmail.com”</div></pre></td></tr></table></figure></li></ul><h3 id="开发相关"><a href="#开发相关" class="headerlink" title="开发相关"></a>开发相关</h3><ul><li><a href="https://nodejs.org/en/download/" target="_blank" rel="external">Nodejs</a></li><li>nodemon (npm install -g nodemon) node更改自动重启</li><li><a href="https://yarnpkg.com/zh-Hans/" target="_blank" rel="external">yarn</a> （node包管理）</li><li><a href="https://npm.taobao.org/" target="_blank" rel="external">cnpm</a> 淘宝 NPM 镜像</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</div></pre></td></tr></table></figure><ul><li><a href="https://www.mongodb.com/" target="_blank" rel="external">Mongodb</a></li><li><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a></li><li><a href="https://robomongo.org/" target="_blank" rel="external">Robo 3T</a> mongo客户端 </li><li><a href="http://www.navicat.com.cn" target="_blank" rel="external">Navicat for mysql</a> MySQL客户端</li><li><a href="http://www.redis.cn/" target="_blank" rel="external">Redis</a></li><li><a href="https://github.com/uglide/RedisDesktopManager/releases" target="_blank" rel="external">RedisDesktopManager</a> Redis客户端</li><li><a href="http://memcached.org/" target="_blank" rel="external">Memcached</a> 缓存管理</li></ul><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul><li><a href="https://www.sass.hk/" target="_blank" rel="external">Scss</a> 前端CSS扩展语言</li><li>vim 设置<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim ~/.zshrc</div><div class="line">syntax on</div><div class="line">set nu # 显示行号</div></pre></td></tr></table></figure></li></ul><hr><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;image-bubble&quot;&gt; &lt;div class=&quot;img-lightbox&quot;&gt; &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt; &lt;img src=&quot;https://ws1.sinaimg.cn/large/006tNc79ly1fke3s
+      
+    
+    </summary>
+    
+      <category term="默认分类" scheme="http://blog.cuiyy.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
+    
+    
+      <category term=" 工具" scheme="http://blog.cuiyy.top/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>Weex 项目 Android部署</title>
@@ -88,31 +113,6 @@
     
     
       <category term="其他" scheme="http://blog.cuiyy.top/tags/%E5%85%B6%E4%BB%96/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>前端工程师都mac系统重装之后</title>
-    <link href="http://blog.cuiyy.top/2017/10/11/etb9IVimFgncBxLQ/"/>
-    <id>http://blog.cuiyy.top/2017/10/11/etb9IVimFgncBxLQ/</id>
-    <published>2017-10-11T03:29:10.000Z</published>
-    <updated>2017-10-11T03:29:10.060Z</updated>
-    
-    <content type="html"><![CDATA[<figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws1.sinaimg.cn/large/006tNc79ly1fke3s9cr5qj30c00aa755.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><p>最近刚更新了 macOS High Sierra，更新过程非常坎坷，最后终于安装成功了，但是曾经装的软件什么的都没有了，需要重新安装，这里列出我所安装的软件列表：</p><h3 id="系统常用"><a href="#系统常用" class="headerlink" title="系统常用"></a>系统常用</h3><ul><li>chrome浏览器</li><li><a href="https://srf.baidu.com/input/mac.html" target="_blank" rel="external">百度输入法</a></li><li>Magnet 分屏软件</li><li>iPic 图片上传神器</li><li>全能解压</li><li>Alfred</li><li><a href="http://sipapp.io/" target="_blank" rel="external">Sip 拾色工具</a></li><li>1Password</li></ul><h3 id="社交"><a href="#社交" class="headerlink" title="社交"></a>社交</h3><ul><li><a href="http://weixin.qq.com/" target="_blank" rel="external">微信</a></li><li><a href="http://im.qq.com/macqq/" target="_blank" rel="external">qq</a></li><li><a href="https://im.dingtalk.com/" target="_blank" rel="external">钉钉</a></li></ul><h3 id="写作笔记"><a href="#写作笔记" class="headerlink" title="写作笔记"></a>写作笔记</h3><ul><li><a href="http://note.youdao.com/" target="_blank" rel="external">有道云笔记</a></li><li><a href="https://www.yinxiang.com/" target="_blank" rel="external">印象笔记</a></li></ul><h3 id="编辑器"><a href="#编辑器" class="headerlink" title="编辑器"></a>编辑器</h3><ul><li><a href="http://www.sublimetext.com/" target="_blank" rel="external">Sublime Text 3</a> (<a href="https://packagecontrol.io/installation" target="_blank" rel="external">package control</a>)</li><li><a href="https://code.visualstudio.com/" target="_blank" rel="external">VScode</a></li></ul><h3 id="Shell增强"><a href="#Shell增强" class="headerlink" title="Shell增强"></a>Shell增强</h3><ul><li><a href="http://ohmyz.sh/" target="_blank" rel="external">oh my zsh</a></li><li><a href="https://brew.sh/" target="_blank" rel="external">Homebrew</a></li><li>wget (brew install wget)</li><li>autojump (brew install autojump)<br>如果link失败可执行</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo chown -R $(whoami) /usr/local/share/</div></pre></td></tr></table></figure><h3 id="代码管理"><a href="#代码管理" class="headerlink" title="代码管理"></a>代码管理</h3><ul><li><a href="https://git-scm.com/" target="_blank" rel="external">Git</a><br>生成KEY：<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">git config --global user.name “xx”</div><div class="line">git config --global user.email “x@gmail.com"</div><div class="line">ssh-keygen -t rsa -C “xx@gmail.com”</div></pre></td></tr></table></figure></li></ul><h3 id="开发相关"><a href="#开发相关" class="headerlink" title="开发相关"></a>开发相关</h3><ul><li><a href="https://nodejs.org/en/download/" target="_blank" rel="external">Nodejs</a></li><li>nodemon (npm install -g nodemon) node更改自动重启</li><li><a href="https://yarnpkg.com/zh-Hans/" target="_blank" rel="external">yarn</a> （node包管理）</li><li><a href="https://npm.taobao.org/" target="_blank" rel="external">cnpm</a> 淘宝 NPM 镜像</li></ul><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g cnpm --registry=https://registry.npm.taobao.org</div></pre></td></tr></table></figure><ul><li><a href="https://www.mongodb.com/" target="_blank" rel="external">Mongodb</a></li><li><a href="https://www.mysql.com/" target="_blank" rel="external">MySQL</a></li><li><a href="https://robomongo.org/" target="_blank" rel="external">Robo 3T</a> mongo客户端 </li><li><a href="http://www.navicat.com.cn" target="_blank" rel="external">Navicat for mysql</a> MySQL客户端</li><li><a href="http://www.redis.cn/" target="_blank" rel="external">Redis</a></li><li><a href="https://github.com/uglide/RedisDesktopManager/releases" target="_blank" rel="external">RedisDesktopManager</a> Redis客户端</li><li><a href="http://memcached.org/" target="_blank" rel="external">Memcached</a> 缓存管理</li></ul><h3 id="其他"><a href="#其他" class="headerlink" title="其他"></a>其他</h3><ul><li><a href="https://www.sass.hk/" target="_blank" rel="external">Scss</a> 前端CSS扩展语言</li><li>vim 设置<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">vim ~/.zshrc</div><div class="line">syntax on</div><div class="line">set nu # 显示行号</div></pre></td></tr></table></figure></li></ul><hr><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;figure class=&quot;image-bubble&quot;&gt; &lt;div class=&quot;img-lightbox&quot;&gt; &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt; &lt;img src=&quot;https://ws1.sinaimg.cn/large/006tNc79ly1fke3s
-      
-    
-    </summary>
-    
-      <category term="默认分类" scheme="http://blog.cuiyy.top/categories/%E9%BB%98%E8%AE%A4%E5%88%86%E7%B1%BB/"/>
-    
-    
-      <category term=" 工具" scheme="http://blog.cuiyy.top/tags/%E5%B7%A5%E5%85%B7/"/>
     
   </entry>
   
