@@ -4,6 +4,28 @@
 
     
   <url>
+    <loc>http://blog.cuiyy.top/2017/11/04/T7ildrYrjZMrsfzN/</loc>
+    <lastmod>2017-11-04T07:56:42.594Z</lastmod>
+    <data>
+        <display>
+        <title>TypeError The header content contains invalid characters</title>
+        <pubTime>2017-11-04T07:56:42.000Z</pubTime>
+        
+        <tag>nodejs</tag>
+         
+        <tag> http</tag>
+         
+         
+           
+             
+              <breadCrumb title="BUG" url="http://blog.cuiyy.top/categories/BUG/"/>
+          
+        </display>
+    </data>
+    </url>
+
+    
+  <url>
     <loc>http://blog.cuiyy.top/2017/10/20/IhU1Rkv60ls2ja09/</loc>
     <lastmod>2017-10-20T07:36:23.899Z</lastmod>
     <data>
@@ -365,9 +387,9 @@
         <title>Ubuntu 16 安装mongodb</title>
         <pubTime>2017-05-02T02:58:36.000Z</pubTime>
         
-        <tag>Ubuntu16</tag>
-         
         <tag>mongodb</tag>
+         
+        <tag>Ubuntu16</tag>
          
          
            

@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.cuiyy.top/"/>
-  <updated>2017-10-20T07:36:23.899Z</updated>
+  <updated>2017-11-04T07:56:42.594Z</updated>
   <id>http://blog.cuiyy.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>TypeError The header content contains invalid characters</title>
+    <link href="http://blog.cuiyy.top/2017/11/04/T7ildrYrjZMrsfzN/"/>
+    <id>http://blog.cuiyy.top/2017/11/04/T7ildrYrjZMrsfzN/</id>
+    <published>2017-11-04T07:56:42.000Z</published>
+    <updated>2017-11-04T07:56:42.594Z</updated>
+    
+    <content type="html"><![CDATA[<p>nodejs运行过程中出现此错误</p><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">TypeError: The header content contains invalid characters</div></pre></td></tr></table></figure><p>出现此原因发现是在执行<code>ctx.redirect</code> 的时候出现的，<br>经检查发现为<code>redirect</code>的<code>url</code>中包含了中文，修改为<code>redirect(encodeURI(url))</code>即可。</p><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;nodejs运行过程中出现此错误&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;co
+      
+    
+    </summary>
+    
+      <category term="BUG" scheme="http://blog.cuiyy.top/categories/BUG/"/>
+    
+    
+      <category term="nodejs" scheme="http://blog.cuiyy.top/tags/nodejs/"/>
+    
+      <category term=" http" scheme="http://blog.cuiyy.top/tags/http/"/>
+    
+  </entry>
   
   <entry>
     <title>Pow 快速创建静态网页服务器</title>
@@ -464,9 +492,9 @@
       <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
     
     
-      <category term="Ubuntu16" scheme="http://blog.cuiyy.top/tags/Ubuntu16/"/>
-    
       <category term="mongodb" scheme="http://blog.cuiyy.top/tags/mongodb/"/>
+    
+      <category term="Ubuntu16" scheme="http://blog.cuiyy.top/tags/Ubuntu16/"/>
     
   </entry>
   
