@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.cuiyy.top/"/>
-  <updated>2017-11-15T03:02:53.153Z</updated>
+  <updated>2017-11-15T03:24:00.035Z</updated>
   <id>http://blog.cuiyy.top/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vue.js 简单的拖拽排序组件</title>
+    <link href="http://blog.cuiyy.top/2017/11/15/JQeeQ6YFw3kcrMxh/"/>
+    <id>http://blog.cuiyy.top/2017/11/15/JQeeQ6YFw3kcrMxh/</id>
+    <published>2017-11-15T03:24:00.000Z</published>
+    <updated>2017-11-15T03:24:00.035Z</updated>
+    
+    <content type="html"><![CDATA[<p><a href="https://cyyjs.github.io/cvc/#/draggable" target="_blank" rel="external">演示地址</a></p><p><a href="https://github.com/cyyjs/cvc" target="_blank" rel="external">github</a></p><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;&lt;a href=&quot;https://cyyjs.github.io/cvc/#/draggable&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;演示地址&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/cyyjs/cvc&quot; t
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="Vue.js" scheme="http://blog.cuiyy.top/tags/Vue-js/"/>
+    
+  </entry>
   
   <entry>
     <title>PM2+Log4js log写入失败问题</title>
@@ -374,31 +400,6 @@
     
     
       <category term="FTP" scheme="http://blog.cuiyy.top/tags/FTP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Vue.js 简单的拖拽排序组件</title>
-    <link href="http://blog.cuiyy.top/2017/06/27/JQeeQ6YFw3kcrMxh/"/>
-    <id>http://blog.cuiyy.top/2017/06/27/JQeeQ6YFw3kcrMxh/</id>
-    <published>2017-06-27T12:10:11.000Z</published>
-    <updated>2017-07-03T08:11:38.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="需求描述"><a href="#需求描述" class="headerlink" title="需求描述"></a>需求描述</h3><h3 id="拖动属性及拖动事件"><a href="#拖动属性及拖动事件" class="headerlink" title="拖动属性及拖动事件"></a>拖动属性及拖动事件</h3><h3 id="接收默认数据"><a href="#接收默认数据" class="headerlink" title="接收默认数据"></a>接收默认数据</h3><h3 id="拖动重新排序"><a href="#拖动重新排序" class="headerlink" title="拖动重新排序"></a>拖动重新排序</h3><h3 id="修改原始数据"><a href="#修改原始数据" class="headerlink" title="修改原始数据"></a>修改原始数据</h3>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;h3 id=&quot;需求描述&quot;&gt;&lt;a href=&quot;#需求描述&quot; class=&quot;headerlink&quot; title=&quot;需求描述&quot;&gt;&lt;/a&gt;需求描述&lt;/h3&gt;&lt;h3 id=&quot;拖动属性及拖动事件&quot;&gt;&lt;a href=&quot;#拖动属性及拖动事件&quot; class=&quot;headerlink&quot; title=
-      
-    
-    </summary>
-    
-      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="Vue.js" scheme="http://blog.cuiyy.top/tags/Vue-js/"/>
     
   </entry>
   
