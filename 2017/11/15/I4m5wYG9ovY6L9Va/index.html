@@ -38,12 +38,12 @@ ga('send', 'pageview');
 <meta name="keywords" content="log4js, pm2">
 <meta property="og:type" content="article">
 <meta property="og:title" content="PM2+Log4js log写入失败问题">
-<meta property="og:url" content="http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/index.html">
+<meta property="og:url" content="http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/index.html">
 <meta property="og:site_name" content="Cyy&#39;s Blog">
 <meta property="og:description" content="问题：项目中用log4js可以正常写入日志到文件中，后来使用pm2启动后，发现文件不能写入到文件了。网上查了很久，并没有找到原因，所以就想到了查看源码的方法，来查找到底是哪里出了问题。 先看相关的配置log4js配置：1234567&amp;#123;   &quot;type&quot;: &quot;dateFile&quot;,   &quot;filename&quot;: &quot;logfile/&quot;,   &quot;pattern&quot;: &quot;flow-yyyy">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="https://ws1.sinaimg.cn/large/006tNc79gy1flgieyz2y1j313s0aedgr.jpg">
-<meta property="og:updated_time" content="2017-11-13T08:52:54.330Z">
+<meta property="og:updated_time" content="2017-11-15T03:02:53.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="PM2+Log4js log写入失败问题">
 <meta name="twitter:description" content="问题：项目中用log4js可以正常写入日志到文件中，后来使用pm2启动后，发现文件不能写入到文件了。网上查了很久，并没有找到原因，所以就想到了查看源码的方法，来查找到底是哪里出了问题。 先看相关的配置log4js配置：1234567&amp;#123;   &quot;type&quot;: &quot;dateFile&quot;,   &quot;filename&quot;: &quot;logfile/&quot;,   &quot;pattern&quot;: &quot;flow-yyyy">
@@ -178,8 +178,8 @@ ga('send', 'pageview');
         <h1 class="title">PM2+Log4js log写入失败问题</h1>
         <h5 class="subtitle">
             
-                <time datetime="2017-11-13T08:52:54.000Z" itemprop="datePublished" class="page-time">
-  2017-11-13
+                <time datetime="2017-11-15T03:02:53.000Z" itemprop="datePublished" class="page-time">
+  2017-11-15
 </time>
 
 
@@ -210,7 +210,7 @@ ga('send', 'pageview');
     <div class="post-card">
         <h1 class="post-card-title">PM2+Log4js log写入失败问题</h1>
         <div class="post-meta">
-            <time class="post-time" title="2017-11-13 16:52:54" datetime="2017-11-13T08:52:54.000Z"  itemprop="datePublished">2017-11-13</time>
+            <time class="post-time" title="2017-11-15 11:02:53" datetime="2017-11-15T03:02:53.000Z"  itemprop="datePublished">2017-11-15</time>
 
             
 	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
@@ -235,7 +235,7 @@ ga('send', 'pageview');
 <p>其中有个<code>isMaster()</code>方法,判断是否为主进程<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isPM2Master</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> config.pm2 &amp;&amp; process.env[config.pm2InstanceVar] === <span class="string">'0'</span>;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">isMaster</span>(<span class="params"></span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> config.disableClustering || cluster.isMaster || isPM2Master();</div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p>可以看到<code>isPM2Master</code>是通过config中的<code>pm2</code>参数和<code>pm2InstanceVar</code>来确定的。<br>所以我们需要在<code>log4js</code>的配置中增加这两个配置。<br><figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    pm2: true,</div><div class="line">    pm2InstanceVar: "INSTANCE_ID" // 与pm2的配置对应 </div><div class="line">&#125;</div></pre></td></tr></table></figure></p>
 <p><a href="http://pm2.keymetrics.io/docs/usage/environment/#node_app_instance-pm2-25-minimum" target="_blank" rel="external">pm2 中NODE_APP_INSTANCE 特定的环境变量</a>可以用来判断主从进程</p>
-<p>此时重启<code>pm2</code>后(需要<code>pm2 delete</code>)，已经可以看到生成的文件了，但是日志还是不能写入。<br>接着看源码：</p>
+<p>此时重启<code>pm2</code>后(需要<code>pm2 delete</code>不然pm2配置文件不生效)，已经可以看到生成的文件了，但是日志还是不能写入。<br>接着看源码：</p>
 <h3 id="workerDispatch方法"><a href="#workerDispatch方法" class="headerlink" title="workerDispatch方法"></a><code>workerDispatch</code>方法</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">workerDispatch</span>(<span class="params">logEvent</span>) </span>&#123;</div><div class="line">  debug(<span class="string">`sending message to master from worker <span class="subst">$&#123;process.pid&#125;</span>`</span>);</div><div class="line">  process.send(&#123; <span class="attr">topic</span>: <span class="string">'log4js:message'</span>, <span class="attr">data</span>: serialise(logEvent) &#125;);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>此方法为工作进程接收到log事件，并发出消息，必定有接收的地方，通过查找代码发现此方法:<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">configure</span>(<span class="params">configurationFileOrObject</span>) </span>&#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">  <span class="keyword">if</span> (config.disableClustering) &#123;</div><div class="line">    debug(<span class="string">'Not listening for cluster messages, because clustering disabled.'</span>);</div><div class="line">  &#125; <span class="keyword">else</span> &#123;</div><div class="line">    <span class="comment">// PM2 cluster support</span></div><div class="line">    <span class="comment">// PM2 runs everything as workers - install pm2-intercom for this to work.</span></div><div class="line">    <span class="comment">// we only want one of the app instances to write logs</span></div><div class="line">    <span class="keyword">if</span> (isPM2Master()) &#123;</div><div class="line">      debug(<span class="string">'listening for PM2 broadcast messages'</span>);</div><div class="line">      process.removeListener(<span class="string">'message'</span>, receiver);</div><div class="line">      process.on(<span class="string">'message'</span>, receiver);</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (cluster.isMaster) &#123;</div><div class="line">      debug(<span class="string">'listening for cluster messages'</span>);</div><div class="line">      cluster.removeListener(<span class="string">'message'</span>, receiver);</div><div class="line">      cluster.on(<span class="string">'message'</span>, receiver);</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      debug(<span class="string">'not listening for messages, because we are not a master process'</span>);</div><div class="line">    &#125;</div><div class="line">  &#125;</div></pre></td></tr></table></figure></p>
 <p>我们可以看到在<code>if</code>条件中有监听的操作，但是，后面的监听函数没有执行，后来才注意到里面的三行注释，需要安装<a href="https://www.npmjs.com/package/pm2-intercom" target="_blank" rel="external"><code>pm2-intercom</code></a>;在执行了<code>pm2 install pm2-intercom</code>后，果然可以了，日志成功写入到了文件中。</p>
@@ -262,7 +262,7 @@ ga('send', 'pageview');
 <div class="page-share" id="pageShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/&title=《PM2+Log4js log写入失败问题》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/&title=《PM2+Log4js log写入失败问题》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -272,22 +272,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/&title=《PM2+Log4js log写入失败问题》 — Cyy's Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/&title=《PM2+Log4js log写入失败问题》 — Cyy's Blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PM2+Log4js log写入失败问题》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/&via=http://blog.cuiyy.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PM2+Log4js log写入失败问题》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/&via=http://blog.cuiyy.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -416,7 +416,7 @@ ga('send', 'pageview');
 <div class="global-share" id="globalShare">
     <ul class="reset share-icons">
       <li>
-        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/&title=《PM2+Log4js log写入失败问题》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/&title=《PM2+Log4js log写入失败问题》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
           <i class="icon icon-weibo"></i>
         </a>
       </li>
@@ -426,22 +426,22 @@ ga('send', 'pageview');
         </a>
       </li>
       <li>
-        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/&title=《PM2+Log4js log写入失败问题》 — Cyy's Blog&source=" data-title=" QQ">
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/&title=《PM2+Log4js log写入失败问题》 — Cyy's Blog&source=" data-title=" QQ">
           <i class="icon icon-qq"></i>
         </a>
       </li>
       <li>
-        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/" data-title=" Facebook">
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/" data-title=" Facebook">
           <i class="icon icon-facebook"></i>
         </a>
       </li>
       <li>
-        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PM2+Log4js log写入失败问题》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/&via=http://blog.cuiyy.top" data-title=" Twitter">
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《PM2+Log4js log写入失败问题》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/&via=http://blog.cuiyy.top" data-title=" Twitter">
           <i class="icon icon-twitter"></i>
         </a>
       </li>
       <li>
-        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/11/13/I4m5wYG9ovY6L9Va/" data-title=" Google+">
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/11/15/I4m5wYG9ovY6L9Va/" data-title=" Google+">
           <i class="icon icon-google-plus"></i>
         </a>
       </li>
@@ -452,7 +452,7 @@ ga('send', 'pageview');
 <div class="page-modal wx-share" id="wxShare">
     <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
-    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACNUlEQVR42u3awY7DIAxF0f7/T2e2I6Wh99lMNcBlVSUp4WRhGePXC4/r17hfIdfvs5G3TB4yZMhYlnENx6zvxOcfX39ciQwZMg5gjMPiGPD05P1fTwtN3ytDhgwZ6XQkEaw9I0OGDBk1Ri34/ruAK0OGjAUZZJPZKZB1Au7kvbgMGTIWZPBi2fd//8n5hgwZMpZiXOHgCV8aLnmQfTOPDBkytmbwAJeSalvc2npkyJCxN4OHUbJcEjRJ6Y00eciQIeMcBi+ZkYDL077+JvnNFRkyZBzAIKGTB9y0zYK/F1UEZciQsR2jVo4fJ4JpGS6dU4YMGacxahOljWLpouM2CxkyZGzK4EeVfSpPPXn714eTWBkyZGzHSAMlPwbgSScnPfaMyJAh40gG6tfAd3lyGcwvQ4aMgxnpFnTuQoMrMmTI2JqRDl4gqyWavKhXPOCUIUPGgoz09aQaX0s3W4FVhgwZWzPSVKxf+q99FPTpZciQsTWDA2ald+Ml8nAfB18ZMmQsyyDpV60tIy3M1e7KkCHjHEathYIsutZskYZmGTJknMPoHyXyhrD0dOIDT4YMGZsyrnB0wjQnkQQ0iNMyZMhYnDEtZjdaNMjz03pGZMiQsSyDl/7HgS/d7qYFuLjcJkOGjO0YPPDx9guSVqZpX9AzIkOGjOMZPGVMmzP4qtANGTJkHMzgh5dpK0axXUyGDBkHMHhrRb/Qn7Z/TS63yZAhY0FGrbifhsj0c3QSVhkyZGzE+AGotiLgTmV6TwAAAABJRU5ErkJggg==" alt="微信分享二维码">
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACL0lEQVR42u3awXLDIAxF0fz/T7vbdlLj+xDtBHFZeTwO5nihgKTXC4/r23i/Q+6/z0besnjIkCFjW8Y1HKu+E59/fP92JTJkyDiAMQ6Ld9dzT87N9rBmGTJkyAivx6GWPyNDhgwZqwIuD5cf/b8hQ4aMj2eQQ2YlQVYJuIvP4jJkyNiQwZNl/3/9J/UNGTJkbMW4wnH3yrsgyMMlD7K/zCNDhozWDB7g+LascsSdW48MGTJOYPCQN37Z3Azjlg7+WxkyZHRl8Caw+ivXlkt/3JEhQ0ZrBik0zi03bbMYh+w4IyhDhox2DBTO8EYt3dilibwHmAwZMloz5hog6vOUigEyZMg4gJGWFdOD6NyTcRFChgwZxzPSRFtlM8dJqDAgQ4aMdgze9JAWJvly07e/0uguQ4aMDRmVtgmyiMpC0zsyZMjozaiEWp56I5s8sgENUn4yZMhoweDNEKtgKH2WPi9DhozWjMVpr6lkXPo54v4RGTJktGPUl14pT/LkXbC3lSFDRgtGpcErTavxQmnMliFDxgGMuYQXuV77mR4CrgwZMlozVpUS+VmZ89BhWIYMGU0ZVzjIV5krc/IjcRynZciQsTljWczGgTstc67adMqQIWN3RppES4uLafvFXCJPhgwZJzAqgY83bZBEXhr6ZciQISNNtPFF88IDStLJkCFDRhg0K60Yk59MhgwZBzDqxQCeYkvbvxan22TIkLEhgx8dK00YnFT5G5AhQ0Y7xhdj47JQsmLqOwAAAABJRU5ErkJggg==" alt="微信分享二维码">
 </div>
 
 
