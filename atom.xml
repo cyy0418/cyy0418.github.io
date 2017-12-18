@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.cuiyy.top/"/>
-  <updated>2017-11-15T03:24:00.035Z</updated>
+  <updated>2017-12-18T02:07:50.099Z</updated>
   <id>http://blog.cuiyy.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>(一)环境搭建及项目创建</title>
+    <link href="http://blog.cuiyy.top/2017/12/18/HEMuznW11H0mJepR/"/>
+    <id>http://blog.cuiyy.top/2017/12/18/HEMuznW11H0mJepR/</id>
+    <published>2017-12-18T02:07:50.000Z</published>
+    <updated>2017-12-18T02:07:50.099Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h1><h2 id="安装所需"><a href="#安装所需" class="headerlink" title="安装所需"></a>安装所需</h2><p>Xcode、Java、Android SDK、Android Studio、Nodejs、watchman<br>安装Android 模拟器</p><h2 id="安装React-Native-CLI"><a href="#安装React-Native-CLI" class="headerlink" title="安装React Native CLI"></a>安装React Native CLI</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g react-native-cli</div></pre></td></tr></table></figure><h2 id="代码环境"><a href="#代码环境" class="headerlink" title="代码环境"></a>代码环境</h2><p>Visual Studio Code<br>浏览器插件： ReactDev Tools</p><h1 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h1><h2 id="初始化项目"><a href="#初始化项目" class="headerlink" title="初始化项目"></a>初始化项目</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">react-native init app</div><div class="line">cd app</div><div class="line">npm install</div></pre></td></tr></table></figure><p>##运行项目<br>将手机用数据线链接或打开手机模拟器<br>安卓手机输入<code>adb devices</code>，会列出设备<br>在项目目录下输入<br><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm run android</div></pre></td></tr></table></figure></p><p>等待完成后会在手机上打开app实例</p><h1 id="启动调试工具"><a href="#启动调试工具" class="headerlink" title="启动调试工具"></a>启动调试工具</h1><p>如果是真机，可以摇晃手机，打开菜单，选择<code>Debug JS Remotely</code>;<br>会在浏览器中打开<code>http://localhost:19001/debugger-ui/</code>页面。<br>如果是模拟器启动，可以输入以下命令触发：</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">adb shell input keyevent 82</div></pre></td></tr></table></figure><p><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws3.sinaimg.cn/large/006tNc79gy1fmha2ik3x7j30ad0j4jtq.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure></p><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;h1 id=&quot;安装&quot;&gt;&lt;a href=&quot;#安装&quot; class=&quot;headerlink&quot; title=&quot;安装&quot;&gt;&lt;/a&gt;安装&lt;/h1&gt;&lt;h2 id=&quot;安装所需&quot;&gt;&lt;a href=&quot;#安装所需&quot; class=&quot;headerlink&quot; title=&quot;安装所需&quot;&gt;&lt;/a&gt;安装所需&lt;/h
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="React Native" scheme="http://blog.cuiyy.top/tags/React-Native/"/>
+    
+  </entry>
   
   <entry>
     <title>Vue.js 简单的拖拽排序组件</title>
@@ -499,30 +524,6 @@
       <category term="nodejs" scheme="http://blog.cuiyy.top/tags/nodejs/"/>
     
       <category term="工具" scheme="http://blog.cuiyy.top/tags/%E5%B7%A5%E5%85%B7/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>Ubuntu 16 安装mongodb</title>
-    <link href="http://blog.cuiyy.top/2017/05/02/gKAfWgqGd2uDqcHZ/"/>
-    <id>http://blog.cuiyy.top/2017/05/02/gKAfWgqGd2uDqcHZ/</id>
-    <published>2017-05-02T02:58:36.000Z</published>
-    <updated>2017-06-20T09:50:35.000Z</updated>
-    
-    <content type="html"><![CDATA[<h3 id="通过apt-get安装"><a href="#通过apt-get安装" class="headerlink" title="通过apt-get安装"></a>通过apt-get安装</h3><h4 id="软件包签名验证"><a href="#软件包签名验证" class="headerlink" title="软件包签名验证"></a>软件包签名验证</h4><p>Ubuntu软件包管理工具（即dpkg和apt）通过要求分销商使用GPG密钥对软件包进行签名来确保软件包的一致性和真实性。<br><a id="more"></a><br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 0C49F3730359A14518585931BC711F9BA15703C6</div></pre></td></tr></table></figure></p><p><a href="https://docs.mongodb.com/master/tutorial/install-mongodb-on-ubuntu/?_ga=2.148904432.795010929.1496648330-1138931183.1493269032" target="_blank" rel="external">官方文档</a></p><h4 id="为MongoDB创建一个列表文件"><a href="#为MongoDB创建一个列表文件" class="headerlink" title="为MongoDB创建一个列表文件"></a>为MongoDB创建一个列表文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">echo</span> <span class="string">"deb [ arch=amd64,arm64 ] http://repo.mongodb.org/apt/ubuntu xenial/mongodb-org/3.4 multiverse"</span> | sudo tee /etc/apt/sources.list.d/mongodb-org-3.4.list</div></pre></td></tr></table></figure><h4 id="更新本地包数据"><a href="#更新本地包数据" class="headerlink" title="更新本地包数据"></a>更新本地包数据</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get update</div></pre></td></tr></table></figure><h4 id="安装MongoDB包"><a href="#安装MongoDB包" class="headerlink" title="安装MongoDB包"></a>安装MongoDB包</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo apt-get install -y mongodb-org</div></pre></td></tr></table></figure><h4 id="启动-暂停-重启"><a href="#启动-暂停-重启" class="headerlink" title="启动|暂停|重启"></a>启动|暂停|重启</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo service mongod start</div><div class="line">sudo service mongod stop</div><div class="line">sudo service mongod restart</div></pre></td></tr></table></figure><h3 id="手动安装"><a href="#手动安装" class="headerlink" title="手动安装"></a>手动安装</h3><h4 id="下载安装包"><a href="#下载安装包" class="headerlink" title="下载安装包"></a>下载安装包</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">wget https://fastdl.mongodb.org/linux/mongodb-linux-arm64-ubuntu1604-3.4.4.tgz</div></pre></td></tr></table></figure><h4 id="解压"><a href="#解压" class="headerlink" title="解压"></a>解压</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">tar -xzvf mongodb-linux-arm64-ubuntu1604-3.4.4.tgz</div></pre></td></tr></table></figure><h4 id="编写Ubuntu服务文件"><a href="#编写Ubuntu服务文件" class="headerlink" title="编写Ubuntu服务文件"></a>编写Ubuntu服务文件</h4><p>增加<code>/lib/systemd/system/mongod.service</code>文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">[Unit]</div><div class="line">Description=An object/document-oriented database</div><div class="line">Documentation=man:mongod(1)</div><div class="line"></div><div class="line">[Service]</div><div class="line">User=root</div><div class="line">ExecStart=/mongodb/bin/mongod --quiet --config /mongodb/mongodb.conf</div><div class="line"></div><div class="line">[Install]</div><div class="line">WantedBy=multi-user.target</div></pre></td></tr></table></figure><h4 id="重新加载service文件"><a href="#重新加载service文件" class="headerlink" title="重新加载service文件"></a>重新加载service文件</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">systemctl daemon-reload</div></pre></td></tr></table></figure><h4 id="启动-暂停-重启-1"><a href="#启动-暂停-重启-1" class="headerlink" title="启动|暂停|重启"></a>启动|暂停|重启</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">sudo service mongod start</div><div class="line">sudo service mongod stop</div><div class="line">sudo service mongod restart</div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;h3 id=&quot;通过apt-get安装&quot;&gt;&lt;a href=&quot;#通过apt-get安装&quot; class=&quot;headerlink&quot; title=&quot;通过apt-get安装&quot;&gt;&lt;/a&gt;通过apt-get安装&lt;/h3&gt;&lt;h4 id=&quot;软件包签名验证&quot;&gt;&lt;a href=&quot;#软件包签名验证&quot; class=&quot;headerlink&quot; title=&quot;软件包签名验证&quot;&gt;&lt;/a&gt;软件包签名验证&lt;/h4&gt;&lt;p&gt;Ubuntu软件包管理工具（即dpkg和apt）通过要求分销商使用GPG密钥对软件包进行签名来确保软件包的一致性和真实性。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="mongodb" scheme="http://blog.cuiyy.top/tags/mongodb/"/>
-    
-      <category term="Ubuntu16" scheme="http://blog.cuiyy.top/tags/Ubuntu16/"/>
     
   </entry>
   
