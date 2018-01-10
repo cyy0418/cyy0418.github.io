@@ -1,1 +1,505 @@
-<!DOCTYPE html><html><head><script>window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)},ga.l=+new Date,ga("create","UA-98939871-1","auto"),ga("send","pageview")</script><script async src="https://www.google-analytics.com/analytics.js"></script><script>var _hmt=_hmt||[]</script><script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script><meta charset="utf-8"><title>(二)ReactNative图标、app名称及启动页设置 | Cyy&#39;s Blog | 生命不止，折腾不息！</title><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><meta name="theme-color" content="#3F51B5"><meta name="keywords" content="React Native"><meta name="description" content="修改App图标替换项目目录android\app\src\main\res\mipmap-xxx中的图片即可         修改App名称打开项目目录android\app\src\main\res\valuse\strings.xml,修改即可：123&amp;lt;resources&amp;gt;    &amp;lt;string name=&quot;app_name&quot;&amp;gt;名称&amp;lt;/string&amp;gt;&amp;lt;"><meta name="keywords" content="React Native"><meta property="og:type" content="article"><meta property="og:title" content="(二)ReactNative图标、app名称及启动页设置"><meta property="og:url" content="http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/index.html"><meta property="og:site_name" content="Cyy&#39;s Blog"><meta property="og:description" content="修改App图标替换项目目录android\app\src\main\res\mipmap-xxx中的图片即可         修改App名称打开项目目录android\app\src\main\res\valuse\strings.xml,修改即可：123&amp;lt;resources&amp;gt;    &amp;lt;string name=&quot;app_name&quot;&amp;gt;名称&amp;lt;/string&amp;gt;&amp;lt;"><meta property="og:locale" content="zh-CN"><meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fmkp7lm117j30gg0ou769.jpg"><meta property="og:updated_time" content="2017-12-18T02:39:35.946Z"><meta name="twitter:card" content="summary"><meta name="twitter:title" content="(二)ReactNative图标、app名称及启动页设置"><meta name="twitter:description" content="修改App图标替换项目目录android\app\src\main\res\mipmap-xxx中的图片即可         修改App名称打开项目目录android\app\src\main\res\valuse\strings.xml,修改即可：123&amp;lt;resources&amp;gt;    &amp;lt;string name=&quot;app_name&quot;&amp;gt;名称&amp;lt;/string&amp;gt;&amp;lt;"><meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fmkp7lm117j30gg0ou769.jpg"><link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="stylesheet" href="/css/style.css?v=1.6.5"><script>window.lazyScripts=[]</script><meta name="baidu-site-verification" content="MiDIocUaQv"><meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i"><meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7"><meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502"><script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script><script>(adsbygoogle=window.adsbygoogle||[]).push({google_ad_client:"ca-pub-8385177684799626",enable_page_level_ads:!0})</script></head><body><div id="loading" class="active"></div><aside id="menu" class="hide"><div class="inner flex-row-vertical"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off"><i class="icon icon-lg icon-close"></i></a><div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)"><div class="brand"><a href="/about" class="avatar waves-effect waves-circle waves-light"><img src="/img/h.jpeg"></a><hgroup class="introduce"><h5 class="nickname">CYY</h5><a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a></hgroup></div></div><div class="scroll-wrap flex-col"><ul class="nav"><li class="waves-block waves-effect"><a href="/"><i class="icon icon-lg icon-home"></i> 主页</a></li><li class="waves-block waves-effect"><a href="/archives"><i class="icon icon-lg icon-archives"></i> 归档</a></li><li class="waves-block waves-effect"><a href="/tags"><i class="icon icon-lg icon-tags"></i> 标签</a></li><li class="waves-block waves-effect"><a href="/categories"><i class="icon icon-lg icon-th-list"></i> 分类</a></li><li class="waves-block waves-effect"><a href="https://github.com/cyyjs" target="_blank"><i class="icon icon-lg icon-github"></i> Github</a></li><li class="waves-block waves-effect"><a href="/about"><i class="icon icon-lg icon-link"></i> 关于我</a></li></ul></div></div></aside><main id="main"><header class="top-header" id="header"><div class="flex-row"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle"><i class="icon icon-lg icon-navicon"></i></a><div class="flex-col header-title ellipsis">(二)ReactNative图标、app名称及启动页设置</div><div class="search-wrap" id="search-wrap"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back"><i class="icon icon-lg icon-chevron-left"></i></a> <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字"><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search"><i class="icon icon-lg icon-search"></i></a></div><a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare"><i class="icon icon-lg icon-share-alt"></i></a></div></header><header class="content-header post-header"><div class="container fade-scale"><h1 class="title">(二)ReactNative图标、app名称及启动页设置</h1><h5 class="subtitle"><time datetime="2017-12-18T02:39:35.000Z" itemprop="datePublished" class="page-time">2017-12-18</time><ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul></h5></div></header><div class="container body-wrap"><aside class="post-widget"><nav class="post-toc-wrap" id="post-toc"><h4>TOC</h4><ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改App图标"><span class="post-toc-number">1.</span> <span class="post-toc-text">修改App图标</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改App名称"><span class="post-toc-number">2.</span> <span class="post-toc-text">修改App名称</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置启动页"><span class="post-toc-number">3.</span> <span class="post-toc-text">设置启动页</span></a></li></ol></nav></aside><article id="post-6H6ccqstKfuW1iYe" class="post-article article-type-post fade" itemprop="blogPost"><div class="post-card"><h1 class="post-card-title">(二)ReactNative图标、app名称及启动页设置</h1><div class="post-meta"><time class="post-time" title="2017-12-18 10:39:35" datetime="2017-12-18T02:39:35.000Z" itemprop="datePublished">2017-12-18</time><ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul><span id="busuanzi_container_page_pv" title="文章总阅读量" style="display:none"><i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span></span></div><div class="post-content" id="post-content" itemprop="postContent" style="padding-bottom:30px"><h2 id="修改App图标"><a href="#修改App图标" class="headerlink" title="修改App图标"></a>修改App图标</h2><p>替换项目目录<code>android\app\src\main\res\mipmap-xxx</code>中的图片即可</p><figure class="image-bubble"><div class="img-lightbox"><div class="overlay"></div><img src="https://ws3.sinaimg.cn/large/006tNc79ly1fmkp7lm117j30gg0ou769.jpg" alt=""></div><div class="image-caption"></div></figure><h2 id="修改App名称"><a href="#修改App名称" class="headerlink" title="修改App名称"></a>修改App名称</h2><p>打开项目目录<code>android\app\src\main\res\valuse\strings.xml</code>,修改即可：<br></p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span>&gt;</span>名称<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure><p></p><h2 id="设置启动页"><a href="#设置启动页" class="headerlink" title="设置启动页"></a>设置启动页</h2><p>使用<a href="https://github.com/mehcode/rn-splash-screen" target="_blank" rel="external">rn-splash-screen</a>组件：<br>使用方法：<br>1、安装 <code>npm i rn-splash-screen --save</code><br>2、连接 <code>react-native link rn-splash-screen</code><br>3、在res文件中新建<code>drawable</code>文件夹，放置<code>splash.png</code>图片<br>4、修改<code>android/app/src/main/res/values/styles.xml</code>文件，添加一行：<br></p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Base application theme. --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowBackground"</span>&gt;</span>@drawable/splash<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="comment">&lt;!-- Customize your theme here. --&gt;</span></span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div><div class="line">5.修改`android/app/src/main/AndroidManifest.xml`文件：</div><div class="line">```xml</div><div class="line"><span class="tag">&lt;<span class="name">application</span></span></div><div class="line"><span class="tag">      <span class="attr">android:name</span>=<span class="string">".MainApplication"</span></span></div><div class="line"><span class="tag">      <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></div><div class="line"><span class="tag">      <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></div><div class="line"><span class="tag">      <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">activity</span></span></div><div class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">".MainActivity"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:configChanges</span>=<span class="string">"keyboard|keyboardHidden|orientation|screenSize"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:windowSoftInputMode</span>=<span class="string">"adjustResize"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">"com.facebook.react.devsupport.DevSettingsActivity"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></div></pre></td></tr></table></figure><p></p><p>6.修改<code>android/app/src/main/java/com/APPNAMES/MainActivity.java</code>文件：</p><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import com.facebook.react.ReactActivity;</div><div class="line">import android.graphics.Color;</div><div class="line">import android.os.Bundle;</div><div class="line"></div><div class="line">import com.facebook.react.ReactInstanceManager;</div><div class="line">import com.facebook.react.bridge.ReactContext;</div><div class="line">import com.mehcode.reactnative.splashscreen.SplashScreen;</div><div class="line"></div><div class="line">public class MainActivity extends ReactActivity &#123;</div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">      // Show the js-controlled splash screen</div><div class="line">        SplashScreen.show(this, getReactInstanceManager());</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>7.修改项目入口页面<br></p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> SplashScreen <span class="keyword">from</span> <span class="string">"rn-splash-screen"</span>;</div><div class="line"></div><div class="line"><span class="comment">// Hide the active splash screen</span></div><div class="line">SplashScreen.hide();</div></pre></td></tr></table></figure><p></p><p>执行<code>react-native run-android</code>启动查看效果</p><div style="text-align:right;font-size:12px;color:#666">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div></div><div class="post-footer"><ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React Native</a></li></ul><div class="page-reward" style="padding:0;position:absolute;right:95px;top:-21px;margin:0;height:42px"><a id="rewardBtn" href="javascript:;" style="width:42px;height:42px;line-height:42px" class="page-reward-btn waves-effect waves-circle waves-light">赏</a></div><div class="page-share-wrap"><div class="page-share" id="pageShare"><ul class="reset share-icons"><li><a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&title=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博"><i class="icon icon-weibo"></i></a></li><li><a class="weixin share-sns wxFab" href="javascript:;" data-title="微信"><i class="icon icon-weixin"></i></a></li><li><a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&title=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&source=" data-title=" QQ"><i class="icon icon-qq"></i></a></li><li><a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/" data-title=" Facebook"><i class="icon icon-facebook"></i></a></li><li><a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&via=http://blog.cuiyy.top" data-title=" Twitter"><i class="icon icon-twitter"></i></a></li><li><a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/" data-title=" Google+"><i class="icon icon-google-plus"></i></a></li></ul></div><a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle"><i class="icon icon-share-alt icon-lg"></i></a></div></div></div><nav class="post-nav flex-row flex-justify-between flex-row-reverse"><div class="waves-block waves-effect next"><a href="/2017/12/18/HEMuznW11H0mJepR/" id="post-next" class="post-nav-link"><div class="tips">Next<i class="icon icon-angle-right icon-lg icon-pl"></i></div><h4 class="title">(一)ReactNative环境搭建及项目创建</h4></a></div></nav></article><div id="reward" class="page-modal reward-lay"><a class="close" href="javascript:;"><i class="icon icon-close"></i></a><h3 class="reward-title"><i class="icon icon-quote-left"></i> 买桶泡面~<i class="icon icon-quote-right"></i></h3><ul class="reward-items"><li><img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码"><p>微信</p></li><li><img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码"><p>支付宝</p></li></ul></div></div><footer class="footer"><div class="top"><p><span id="busuanzi_container_site_uv" style="display:none">站点总访客数：<span id="busuanzi_value_site_uv"></span></span> <span id="busuanzi_container_site_pv" style="display:none">站点总访问量：<span id="busuanzi_value_site_pv"></span></span></p><p><span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span> <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span></p></div><div class="bottom"><p><span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span> <span>CYY &copy; 2016 - 2017</span></p></div></footer></main><div class="mask" id="mask"></div><a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a><div class="global-share" id="globalShare"><ul class="reset share-icons"><li><a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&title=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博"><i class="icon icon-weibo"></i></a></li><li><a class="weixin share-sns wxFab" href="javascript:;" data-title="微信"><i class="icon icon-weixin"></i></a></li><li><a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&title=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&source=" data-title=" QQ"><i class="icon icon-qq"></i></a></li><li><a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/" data-title=" Facebook"><i class="icon icon-facebook"></i></a></li><li><a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&via=http://blog.cuiyy.top" data-title=" Twitter"><i class="icon icon-twitter"></i></a></li><li><a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/" data-title=" Google+"><i class="icon icon-google-plus"></i></a></li></ul></div><div class="page-modal wx-share" id="wxShare"><a class="close" href="javascript:;"><i class="icon icon-close"></i></a><p>扫一扫，分享到微信</p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3ay07DMBAFUP7/p8sWCTXcOw6g2MerqmoSnyym8/DHR7xe39bX72ef3935+29uWxgYGI9lvC7X9eOTe16/iOQ1RVQMDIwDGO+2kgTKZEPXV+XPffs9BgYGxuVvZqtNPTEwMDASRpLq3RumMTAwMNoitt1WUtb+Qy2OgYHxQEbedf/7z78y38DAwHgUY6XszFPJNqDXu8LAwNiasTLCTDCzwJ0PEjAwME5gtI229VbayvgTAwPjZEZ+cT7IXDm0kY8cMDAwzmHMwuWsiE2GB3XTDQMD43jGvY9sx5NF1xADA2NTRpKu5cVke5CibbrVfT4MDIxjGG0DLnkF14E+P5pWBFwMDIxNGbO2fjsqWH8RGBgY5zCK0Fa259pUclg2Y2BgHMBIHhkNFH+tJVf/b2BgYGzBKKzxVvJG26xjFsVvDAyMjRj3lprtwbL89UV7xsDAOICRjxtnBefKEbEoBGNgYGzNmB2kmAXWvNBN/gAKDAYGxsMZ7UbblK7d3DCVxMDAOJKRt+nzcUKb/CVjCQwMjBMYs6CZt9vya2edfwwMjL0Zr3K1NfHKwKAOshgYGJsyVvrqeUF7nVzOGnC3jQcwMDAewmiDbDsGSEJ2fsijqJsxMDC2Y6yna+3hjFna98MIEwMDA6MMmrPBwzCHxcDAwFgoPvPjGskd6uElBgbGRozZMCB/8F1p5W3tNgwMjEcxZnnXSmMub7fdVfpiYGA8lvEJukWOdGlzt5wAAAAASUVORK5CYII=" alt="微信分享二维码"></div><script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script><script>var BLOG={ROOT:"/",SHARE:!0,REWARD:!0}</script><script src="/js/main.min.js?v=1.6.5"></script><div class="search-panel" id="search-panel"><ul class="search-result" id="search-result"></ul></div><template id="search-tpl"><li class="item"><a href="{path}" class="waves-block waves-effect"><div class="title ellipsis" title="{title}">{title}</div><div class="flex-row flex-middle"><div class="tags ellipsis">{tags}</div><time class="flex-col time">{date}</time></div></a></li></template><script src="/js/search.min.js?v=1.6.5" async></script><script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script><script>!function(){var t,e=document.title;document.addEventListener("visibilitychange",function(){document.hidden?(document.title="死鬼去哪里了！",clearTimeout(t)):(document.title="(つェ⊂)咦!又好了!",t=setTimeout(function(){document.title=e},2e3))})}()</script></body></html>
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-98939871-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>(二)ReactNative图标、app名称及启动页设置 | Cyy&#39;s Blog | 生命不止，折腾不息！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="React Native">
+    <meta name="description" content="修改App图标替换项目目录android\app\src\main\res\mipmap-xxx中的图片即可         修改App名称打开项目目录android\app\src\main\res\valuse\strings.xml,修改即可：123&amp;lt;resources&amp;gt;    &amp;lt;string name=&quot;app_name&quot;&amp;gt;名称&amp;lt;/string&amp;gt;&amp;lt;">
+<meta name="keywords" content="React Native">
+<meta property="og:type" content="article">
+<meta property="og:title" content="(二)ReactNative图标、app名称及启动页设置">
+<meta property="og:url" content="http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/index.html">
+<meta property="og:site_name" content="Cyy&#39;s Blog">
+<meta property="og:description" content="修改App图标替换项目目录android\app\src\main\res\mipmap-xxx中的图片即可         修改App名称打开项目目录android\app\src\main\res\valuse\strings.xml,修改即可：123&amp;lt;resources&amp;gt;    &amp;lt;string name=&quot;app_name&quot;&amp;gt;名称&amp;lt;/string&amp;gt;&amp;lt;">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fmkp7lm117j30gg0ou769.jpg">
+<meta property="og:updated_time" content="2017-12-18T02:39:35.946Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="(二)ReactNative图标、app名称及启动页设置">
+<meta name="twitter:description" content="修改App图标替换项目目录android\app\src\main\res\mipmap-xxx中的图片即可         修改App名称打开项目目录android\app\src\main\res\valuse\strings.xml,修改即可：123&amp;lt;resources&amp;gt;    &amp;lt;string name=&quot;app_name&quot;&amp;gt;名称&amp;lt;/string&amp;gt;&amp;lt;">
+<meta name="twitter:image" content="https://ws3.sinaimg.cn/large/006tNc79ly1fmkp7lm117j30gg0ou769.jpg">
+    
+        <link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.5">
+    <script>window.lazyScripts=[]</script>
+    <!-- 百度站长 -->
+    <meta name="baidu-site-verification" content="MiDIocUaQv" />
+    <!-- 搜狗联盟 -->
+    <meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i">
+    <!-- 百度联盟 -->
+    <meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7">
+    <meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502">
+    <!-- 谷歌广告 -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8385177684799626",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/h.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CYY</h5>
+          <a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/cyyjs" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">(二)ReactNative图标、app名称及启动页设置</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">(二)ReactNative图标、app名称及启动页设置</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2017-12-18T02:39:35.000Z" itemprop="datePublished" class="page-time">
+  2017-12-18
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改App图标"><span class="post-toc-number">1.</span> <span class="post-toc-text">修改App图标</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#修改App名称"><span class="post-toc-number">2.</span> <span class="post-toc-text">修改App名称</span></a></li><li class="post-toc-item post-toc-level-2"><a class="post-toc-link" href="#设置启动页"><span class="post-toc-number">3.</span> <span class="post-toc-text">设置启动页</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-6H6ccqstKfuW1iYe"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">(二)ReactNative图标、app名称及启动页设置</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2017-12-18 10:39:35" datetime="2017-12-18T02:39:35.000Z"  itemprop="datePublished">2017-12-18</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent" style="padding-bottom: 30px;">
+            <h2 id="修改App图标"><a href="#修改App图标" class="headerlink" title="修改App图标"></a>修改App图标</h2><p>替换项目目录<code>android\app\src\main\res\mipmap-xxx</code>中的图片即可</p>
+<figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws3.sinaimg.cn/large/006tNc79ly1fmkp7lm117j30gg0ou769.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure>
+
+<h2 id="修改App名称"><a href="#修改App名称" class="headerlink" title="修改App名称"></a>修改App名称</h2><p>打开项目目录<code>android\app\src\main\res\valuse\strings.xml</code>,修改即可：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">"app_name"</span>&gt;</span>名称<span class="tag">&lt;/<span class="name">string</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<h2 id="设置启动页"><a href="#设置启动页" class="headerlink" title="设置启动页"></a>设置启动页</h2><p>使用<a href="https://github.com/mehcode/rn-splash-screen" target="_blank" rel="external">rn-splash-screen</a>组件：<br>使用方法：<br>1、安装 <code>npm i rn-splash-screen --save</code><br>2、连接 <code>react-native link rn-splash-screen</code><br>3、在res文件中新建<code>drawable</code>文件夹，放置<code>splash.png</code>图片<br>4、修改<code>android/app/src/main/res/values/styles.xml</code>文件，添加一行：<br><figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">resources</span>&gt;</span></div><div class="line">    <span class="comment">&lt;!-- Base application theme. --&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">style</span> <span class="attr">name</span>=<span class="string">"AppTheme"</span> <span class="attr">parent</span>=<span class="string">"Theme.AppCompat.Light.NoActionBar"</span>&gt;</span><span class="undefined"></span></div><div class="line"><span class="xml">        <span class="tag">&lt;<span class="name">item</span> <span class="attr">name</span>=<span class="string">"android:windowBackground"</span>&gt;</span>@drawable/splash<span class="tag">&lt;/<span class="name">item</span>&gt;</span></span></div><div class="line"><span class="xml">        <span class="comment">&lt;!-- Customize your theme here. --&gt;</span></span></div><div class="line"><span class="undefined">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">resources</span>&gt;</span></div><div class="line">5.修改`android/app/src/main/AndroidManifest.xml`文件：</div><div class="line">```xml</div><div class="line"><span class="tag">&lt;<span class="name">application</span></span></div><div class="line"><span class="tag">      <span class="attr">android:name</span>=<span class="string">".MainApplication"</span></span></div><div class="line"><span class="tag">      <span class="attr">android:allowBackup</span>=<span class="string">"true"</span></span></div><div class="line"><span class="tag">      <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></div><div class="line"><span class="tag">      <span class="attr">android:icon</span>=<span class="string">"@mipmap/ic_launcher"</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">activity</span></span></div><div class="line"><span class="tag">        <span class="attr">android:name</span>=<span class="string">".MainActivity"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:theme</span>=<span class="string">"@style/AppTheme"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:label</span>=<span class="string">"@string/app_name"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:configChanges</span>=<span class="string">"keyboard|keyboardHidden|orientation|screenSize"</span></span></div><div class="line"><span class="tag">        <span class="attr">android:windowSoftInputMode</span>=<span class="string">"adjustResize"</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">intent-filter</span>&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">action</span> <span class="attr">android:name</span>=<span class="string">"android.intent.action.MAIN"</span> /&gt;</span></div><div class="line">            <span class="tag">&lt;<span class="name">category</span> <span class="attr">android:name</span>=<span class="string">"android.intent.category.LAUNCHER"</span> /&gt;</span></div><div class="line">        <span class="tag">&lt;/<span class="name">intent-filter</span>&gt;</span></div><div class="line">      <span class="tag">&lt;/<span class="name">activity</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">activity</span> <span class="attr">android:name</span>=<span class="string">"com.facebook.react.devsupport.DevSettingsActivity"</span> /&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">application</span>&gt;</span></div></pre></td></tr></table></figure></p>
+<p>6.修改<code>android/app/src/main/java/com/APPNAMES/MainActivity.java</code>文件：</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">import com.facebook.react.ReactActivity;</div><div class="line">import android.graphics.Color;</div><div class="line">import android.os.Bundle;</div><div class="line"></div><div class="line">import com.facebook.react.ReactInstanceManager;</div><div class="line">import com.facebook.react.bridge.ReactContext;</div><div class="line">import com.mehcode.reactnative.splashscreen.SplashScreen;</div><div class="line"></div><div class="line">public class MainActivity extends ReactActivity &#123;</div><div class="line">    @Override</div><div class="line">    protected void onCreate(Bundle savedInstanceState) &#123;</div><div class="line">      // Show the js-controlled splash screen</div><div class="line">        SplashScreen.show(this, getReactInstanceManager());</div><div class="line">        super.onCreate(savedInstanceState);</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>7.修改项目入口页面<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> SplashScreen <span class="keyword">from</span> <span class="string">"rn-splash-screen"</span>;</div><div class="line"></div><div class="line"><span class="comment">// Hide the active splash screen</span></div><div class="line">SplashScreen.hide();</div></pre></td></tr></table></figure></p>
+<p>执行<code>react-native run-android</code>启动查看效果</p>
+<div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>
+        </div>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/React-Native/">React Native</a></li></ul>
+
+            
+<div class="page-reward" style="padding: 0;position: absolute;right: 95px;top:-21px;margin: 0;height:42px;">
+    <a id="rewardBtn" href="javascript:;" style="width: 42px;height: 42px;line-height: 42px;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&title=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&title=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+    
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2018/01/10/RaSYFZPT0VuWlkVp/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">广告竞价中常用的价格解密算法</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/18/HEMuznW11H0mJepR/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">(一)ReactNative环境搭建及项目创建</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        买桶泡面~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>CYY &copy; 2016 - 2018</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&title=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&title=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《(二)ReactNative图标、app名称及启动页设置》 — Cyy's Blog&url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2017/12/18/6H6ccqstKfuW1iYe/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACKklEQVR42u3ay07DMBAFUP7/p8sWCTXcOw6g2MerqmoSnyym8/DHR7xe39bX72ef3935+29uWxgYGI9lvC7X9eOTe16/iOQ1RVQMDIwDGO+2kgTKZEPXV+XPffs9BgYGxuVvZqtNPTEwMDASRpLq3RumMTAwMNoitt1WUtb+Qy2OgYHxQEbedf/7z78y38DAwHgUY6XszFPJNqDXu8LAwNiasTLCTDCzwJ0PEjAwME5gtI229VbayvgTAwPjZEZ+cT7IXDm0kY8cMDAwzmHMwuWsiE2GB3XTDQMD43jGvY9sx5NF1xADA2NTRpKu5cVke5CibbrVfT4MDIxjGG0DLnkF14E+P5pWBFwMDIxNGbO2fjsqWH8RGBgY5zCK0Fa259pUclg2Y2BgHMBIHhkNFH+tJVf/b2BgYGzBKKzxVvJG26xjFsVvDAyMjRj3lprtwbL89UV7xsDAOICRjxtnBefKEbEoBGNgYGzNmB2kmAXWvNBN/gAKDAYGxsMZ7UbblK7d3DCVxMDAOJKRt+nzcUKb/CVjCQwMjBMYs6CZt9vya2edfwwMjL0Zr3K1NfHKwKAOshgYGJsyVvrqeUF7nVzOGnC3jQcwMDAewmiDbDsGSEJ2fsijqJsxMDC2Y6yna+3hjFna98MIEwMDA6MMmrPBwzCHxcDAwFgoPvPjGskd6uElBgbGRozZMCB/8F1p5W3tNgwMjEcxZnnXSmMub7fdVfpiYGA8lvEJukWOdGlzt5wAAAAASUVORK5CYII=" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.5"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.5" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

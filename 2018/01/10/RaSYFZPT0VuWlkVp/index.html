@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-98939871-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>广告竞价中常用的价格解密算法 | Cyy&#39;s Blog | 生命不止，折腾不息！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="nodejs">
+    <meta name="description" content="Real-Time Bidding Protocol Decrypt Price Confirmations 谷歌实时竞价文档  加密结果格式1&amp;#123;初始化向量 (16 bytes)&amp;#125;&amp;#123;加密的价格(8 bytes)&amp;#125;&amp;#123;完整性签名(4 bytes)&amp;#125; 加密价格的长度固定为 28 个字节，其中包含 16 个字节的初始化矢量、8 个字节的密 文以">
+<meta name="keywords" content="nodejs">
+<meta property="og:type" content="article">
+<meta property="og:title" content="广告竞价中常用的价格解密算法">
+<meta property="og:url" content="http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/index.html">
+<meta property="og:site_name" content="Cyy&#39;s Blog">
+<meta property="og:description" content="Real-Time Bidding Protocol Decrypt Price Confirmations 谷歌实时竞价文档  加密结果格式1&amp;#123;初始化向量 (16 bytes)&amp;#125;&amp;#123;加密的价格(8 bytes)&amp;#125;&amp;#123;完整性签名(4 bytes)&amp;#125; 加密价格的长度固定为 28 个字节，其中包含 16 个字节的初始化矢量、8 个字节的密 文以">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-10T06:39:31.396Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="广告竞价中常用的价格解密算法">
+<meta name="twitter:description" content="Real-Time Bidding Protocol Decrypt Price Confirmations 谷歌实时竞价文档  加密结果格式1&amp;#123;初始化向量 (16 bytes)&amp;#125;&amp;#123;加密的价格(8 bytes)&amp;#125;&amp;#123;完整性签名(4 bytes)&amp;#125; 加密价格的长度固定为 28 个字节，其中包含 16 个字节的初始化矢量、8 个字节的密 文以">
+    
+        <link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.5">
+    <script>window.lazyScripts=[]</script>
+    <!-- 百度站长 -->
+    <meta name="baidu-site-verification" content="MiDIocUaQv" />
+    <!-- 搜狗联盟 -->
+    <meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i">
+    <!-- 百度联盟 -->
+    <meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7">
+    <meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502">
+    <!-- 谷歌广告 -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8385177684799626",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/h.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CYY</h5>
+          <a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/cyyjs" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">广告竞价中常用的价格解密算法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">广告竞价中常用的价格解密算法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-10T06:39:31.000Z" itemprop="datePublished" class="page-time">
+  2018-01-10
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#加密结果格式"><span class="post-toc-number">1.</span> <span class="post-toc-text">加密结果格式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#加密方式"><span class="post-toc-number">2.</span> <span class="post-toc-text">加密方式</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解密阶段伪代码"><span class="post-toc-number">3.</span> <span class="post-toc-text">解密阶段伪代码</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#字符与表达式解释"><span class="post-toc-number">4.</span> <span class="post-toc-text">字符与表达式解释</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#解密算法nodejs版示例"><span class="post-toc-number">5.</span> <span class="post-toc-text">解密算法nodejs版示例</span></a></li></ol>
+        </nav>
+    </aside>
+    
+<article id="post-RaSYFZPT0VuWlkVp"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">广告竞价中常用的价格解密算法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-10 14:39:31" datetime="2018-01-10T06:39:31.000Z"  itemprop="datePublished">2018-01-10</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent" style="padding-bottom: 30px;">
+            <blockquote>
+<p><a href="https://developers.google.com/ad-exchange/rtb/response-guide/decrypt-price" target="_blank" rel="external">Real-Time Bidding Protocol Decrypt Price Confirmations 谷歌实时竞价文档</a></p>
+</blockquote>
+<h3 id="加密结果格式"><a href="#加密结果格式" class="headerlink" title="加密结果格式"></a>加密结果格式</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&#123;初始化向量 (16 bytes)&#125;&#123;加密的价格(8 bytes)&#125;&#123;完整性签名(4 bytes)&#125;</div></pre></td></tr></table></figure>
+<p>加密价格的长度固定为 28 个字节，其中包含 16 个字节的初始化矢量、8 个字节的密 文以及 4 个字节的完整性签名。</p>
+<h3 id="加密方式"><a href="#加密方式" class="headerlink" title="加密方式"></a>加密方式</h3><p>使用基于SHA-1 HMAC算法的加密解密示例如下:<br>加密阶段伪代码:<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">pad = hmac(e_key, iv) // 取前 8 个字节 </div><div class="line">enc_price = pad &lt;xor&gt; price</div><div class="line">signature = hmac(i_key, price || iv) // 取前 4 个字节</div><div class="line">final_message = WebSafeBase64Encode( iv || enc_price || signature )</div></pre></td></tr></table></figure></p>
+<h3 id="解密阶段伪代码"><a href="#解密阶段伪代码" class="headerlink" title="解密阶段伪代码"></a>解密阶段伪代码</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">(iv || enc_price || signature) = WebSafeBase64Decode(final_message) pad = hmac(e_key, iv)</div><div class="line">price = enc_price &lt;xor&gt; pad</div><div class="line">conf_sig = hmac(i_key, price || iv)</div><div class="line">success = (conf_sig == signature)</div></pre></td></tr></table></figure>
+<h3 id="字符与表达式解释"><a href="#字符与表达式解释" class="headerlink" title="字符与表达式解释"></a>字符与表达式解释</h3><p>iv: 初始化矢量(16 个字节)<br>e_key: 加密密钥(32 个字节)<br>i_key: 完整性密钥(32 个字节)<br>price: 价格 (8 个字节)<br>hmac(k, d): 数据 d 的 SHA-1 HMAC，使用密钥 k<br>a || b: 字符串 a 和字符串 b 并列</p>
+<h3 id="解密算法nodejs版示例"><a href="#解密算法nodejs版示例" class="headerlink" title="解密算法nodejs版示例"></a>解密算法nodejs版示例</h3><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> crypto = <span class="built_in">require</span>(<span class="string">'crypto'</span>);</div><div class="line"><span class="keyword">const</span> e_key = <span class="string">""</span>;</div><div class="line"><span class="keyword">const</span> i_key = <span class="string">""</span>;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">WebSafeBase64Decode</span>(<span class="params">base</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> s = base.replace(<span class="regexp">/\-/g</span>, <span class="string">'+'</span>).replace(<span class="regexp">/\_/g</span>, <span class="string">'/'</span>);</div><div class="line">    <span class="keyword">if</span> ((s.length % <span class="number">4</span>) == <span class="number">2</span>) &#123;</div><div class="line">        s += <span class="string">"=="</span>;</div><div class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> ((s.length % <span class="number">4</span>) == <span class="number">3</span>) &#123;</div><div class="line">        s += <span class="string">"="</span>;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> s;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">decodePrice</span>(<span class="params">e_enc</span>) </span>&#123;</div><div class="line">    <span class="keyword">let</span> buffer = <span class="keyword">new</span> Buffer(WebSafeBase64Decode(e_enc), <span class="string">'base64'</span>); <span class="comment">// base64解码</span></div><div class="line"></div><div class="line">    <span class="keyword">let</span> iv = buffer.slice(<span class="number">0</span>, <span class="number">16</span>); <span class="comment">// 初始化矢量数组</span></div><div class="line">    <span class="keyword">let</span> en_price = buffer.slice(<span class="number">16</span>, <span class="number">24</span>); <span class="comment">// 加密的价格数组</span></div><div class="line">    <span class="keyword">let</span> integrity = buffer.slice(<span class="number">24</span>, <span class="number">28</span>).toString(<span class="string">'hex'</span>); <span class="comment">// 完整性签名的前4位, 转换成16进制字符串</span></div><div class="line">    <span class="keyword">let</span> de_byte = crypto.createHmac(<span class="string">'sha1'</span>, e_key).update(iv).digest().slice(<span class="number">0</span>, <span class="number">8</span>); <span class="comment">// HmacSHA1 加密得到加密数组, 取前8个字节</span></div><div class="line">    </div><div class="line">    <span class="keyword">let</span> dec_price = <span class="keyword">new</span> Buffer.allocUnsafe(<span class="number">8</span>); <span class="comment">// 创建一个长度为8的buffer</span></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>; i &lt; <span class="number">8</span>; i++) &#123;</div><div class="line">        dec_price[i] = en_price[i] ^ de_byte[i] <span class="comment">// 将异或运算后的新值存入dec_price</span></div><div class="line">    &#125;</div><div class="line">    <span class="keyword">let</span> price = <span class="built_in">parseInt</span>(dec_price.toString(<span class="string">"hex"</span>), <span class="number">16</span>) / <span class="number">1000000</span>; <span class="comment">// 转换成价格</span></div><div class="line">    <span class="comment">// 加密签名验证</span></div><div class="line">    <span class="keyword">let</span> o_ikey = crypto.createHmac(<span class="string">'sha1'</span>, i_key).update(Buffer.concat([dec_price, iv])).digest().slice(<span class="number">0</span>, <span class="number">4</span>).toString(<span class="string">'hex'</span>);</div><div class="line">    <span class="keyword">if</span> (integrity == o_ikey) &#123; <span class="comment">// 比较两个签名数组是否相同</span></div><div class="line">        <span class="keyword">return</span> price;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">        <span class="keyword">return</span> <span class="number">-1</span>;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">decodePrice(<span class="string">"加密价格字符串"</span>);</div></pre></td></tr></table></figure>
+<div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>
+        </div>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+
+            
+<div class="page-reward" style="padding: 0;position: absolute;right: 95px;top:-21px;margin: 0;height:42px;">
+    <a id="rewardBtn" href="javascript:;" style="width: 42px;height: 42px;line-height: 42px;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/&title=《广告竞价中常用的价格解密算法》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/&title=《广告竞价中常用的价格解密算法》 — Cyy's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《广告竞价中常用的价格解密算法》 — Cyy's Blog&url=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+    
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2017/12/18/6H6ccqstKfuW1iYe/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">(二)ReactNative图标、app名称及启动页设置</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        买桶泡面~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>CYY &copy; 2016 - 2018</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/&title=《广告竞价中常用的价格解密算法》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/&title=《广告竞价中常用的价格解密算法》 — Cyy's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《广告竞价中常用的价格解密算法》 — Cyy's Blog&url=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2018/01/10/RaSYFZPT0VuWlkVp/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACLElEQVR42u3aS47DMAwE0dz/0s4BAivVpL0QVV4FwYyllwXB3+eDn+vn6fzl+vv1+1uPDBkytmVcy4ccQA7m719/f3sTGTJkHMBYX468ev1fPKSu33D7vQwZMmRgEk8WecCVIUOGjJRBUkAecHn4liFDhozHXgeK2DQoP1yLy5AhY0NGJ4y+/fmV+YYMGTK2Ylzhsw6d60RwHS6vxiNDhozZjNoAkhSlTwXu4D4yZMgYzeDhsl988tZbcclDhgwZQxlpG6t/racCsQwZMk5gkGP4IlcnZNcSzSA/lSFDxrYM3j7rXIL/NJ1FMRkyZMxm1C7RmTCS8FpcsJAhQ8Y4Rtqa5+G1nw4GQwgZMmSMZvC0LB0P1ArRfnIpQ4aMeQx+fApI23O1JbP4V5QhQ8aGDL7IlR5cu2hKkiFDxgmMoBtXSuB4aCaB+/ZEGTJkjGa8scPAG21pMZyugMiQIWMSg6w41MpafjleQv+pyGXIkDGUwZtc6UoEIdXwaDlMhgwZgxjpMZ22WjBTTRNNGTJkHMBIR4a1NJEEet68C6ptGTJkjGDUWvyk4ORX7wwnZMiQMZXRGSXy9lkaQOP6W4YMGaMZ/QWL/pCAB+LWsoUMGTI2Z6QrWbVWGl+/4HeQIUPGaYx+4EuXNmppH9oZkSFDhowwuySDTx6+gz0RGTJkHMzoFKt8ySxtxsmQIeMERjoMIIVoOiTo/HAyZMiYzeDpXe0zH5qmV5QhQ8YBjC/j5yLgmN9tsQAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.5"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.5" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
