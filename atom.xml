@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.cuiyy.top/"/>
-  <updated>2018-01-10T06:41:15.839Z</updated>
+  <updated>2018-01-16T06:03:15.866Z</updated>
   <id>http://blog.cuiyy.top/</id>
   
   <author>
@@ -15,6 +15,31 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>如何免费科学上网</title>
+    <link href="http://blog.cuiyy.top/2018/01/16/71hYzzWl30Ec9OZh/"/>
+    <id>http://blog.cuiyy.top/2018/01/16/71hYzzWl30Ec9OZh/</id>
+    <published>2018-01-16T06:03:15.000Z</published>
+    <updated>2018-01-16T06:03:15.866Z</updated>
+    
+    <content type="html"><![CDATA[<figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws4.sinaimg.cn/large/006tNc79gy1fni9qq209rj30cs07o0u1.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><p>如何使用免费资源实现科学上网？<br>首先要有一台可以访问墙外资源的服务器，然后在服务器上搭建<code>shadowsocks</code>即可。</p><p>本教程开始前，请确保您的电脑可以访问google网站。（WTF！！）</p><h3 id="领取免费资源"><a href="#领取免费资源" class="headerlink" title="领取免费资源"></a>领取免费资源</h3><p><a href="https://cloud.google.com/free/" target="_blank" rel="external">Google Cloud Platform 免费方案</a> goole提供12个月及$300美金的赠金，登录即可领取。</p><h3 id="搭建服务器"><a href="#搭建服务器" class="headerlink" title="搭建服务器"></a>搭建服务器</h3><p>登录<a href="https://console.cloud.google.com" target="_blank" rel="external">Google Cloud Platform</a>创建项目，然后打开左侧菜单，选择<code>Compute Engine</code>，创建一个<code>VM</code>实例,根据提示完成创建。</p><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws3.sinaimg.cn/large/006tNc79ly1fnia3p98k6j30a70on3zt.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><p>创建完成后，点击链接<code>SSH</code>登录远程服务器。</p><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws4.sinaimg.cn/large/006tNc79ly1fnia7lhbazj30h606iaac.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><h3 id="安装-shadowsocks-服务程序"><a href="#安装-shadowsocks-服务程序" class="headerlink" title="安装 shadowsocks 服务程序"></a>安装 shadowsocks 服务程序</h3><p>打开<a href="https://shadowsocks.org/en/download/servers.html" target="_blank" rel="external">Shadowsocks servers</a>,根据提示安装。</p><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">apt-get install python-pip</div><div class="line">pip install shadowsocks</div></pre></td></tr></table></figure><h3 id="配置文件"><a href="#配置文件" class="headerlink" title="配置文件"></a>配置文件</h3><p>创建一个配置文件<code>conf.json</code></p><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">"server"</span>:<span class="string">"内网ip"</span>,</div><div class="line">    <span class="attr">"server_port"</span>:<span class="number">8388</span>,</div><div class="line">    <span class="attr">"local_address"</span>: <span class="string">"127.0.0.1"</span>,</div><div class="line">    <span class="attr">"local_port"</span>:<span class="number">1080</span>,</div><div class="line">    <span class="attr">"password"</span>:<span class="string">"password"</span>,</div><div class="line">    <span class="attr">"timeout"</span>:<span class="number">300</span>,</div><div class="line">    <span class="attr">"method"</span>:<span class="string">"aes-256-cfb"</span></div><div class="line">&#125;</div></pre></td></tr></table></figure><p><strong>注意</strong>：<code>server</code>一定要是服务器的内网<code>ip</code>，使用外网<code>ip</code>可以请求不通。</p><h3 id="启动及停止"><a href="#启动及停止" class="headerlink" title="启动及停止"></a>启动及停止</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo ssserver -c ./conf.json -d start</div></pre></td></tr></table></figure><p>停止将<code>start</code>改成<code>stop</code>即可。</p><h3 id="查看日志"><a href="#查看日志" class="headerlink" title="查看日志"></a>查看日志</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo less /var/log/shadowsocks.log</div></pre></td></tr></table></figure><h3 id="常见错误"><a href="#常见错误" class="headerlink" title="常见错误"></a>常见错误</h3><p><a href="https://github.com/shadowsocks/shadowsocks/issues/693" target="_blank" rel="external">启动错误</a></p><h3 id="客户端连接"><a href="#客户端连接" class="headerlink" title="客户端连接"></a>客户端连接</h3><p><a href="https://shadowsocks.org/en/download/clients.html" target="_blank" rel="external">客户端下载</a><br><a href="https://github.com/shadowsocks" target="_blank" rel="external">GitHub上下载</a></p><p><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="https://ws4.sinaimg.cn/large/006tNc79gy1fnieuit91bj30ws0t8q51.jpg" alt="" title=""> </div> <div class="image-caption"></div> </figure><br>填写外网地址，选择加密方式，输入密码，确定后链接即可。</p><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;figure class=&quot;image-bubble&quot;&gt; &lt;div class=&quot;img-lightbox&quot;&gt; &lt;div class=&quot;overlay&quot;&gt;&lt;/div&gt; &lt;img src=&quot;https://ws4.sinaimg.cn/large/006tNc79gy1fni9q
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term=" 工具" scheme="http://blog.cuiyy.top/tags/%E5%B7%A5%E5%85%B7/"/>
+    
+  </entry>
   
   <entry>
     <title>广告竞价中常用的价格解密算法</title>
@@ -500,32 +525,6 @@
       <category term="nodejs" scheme="http://blog.cuiyy.top/tags/nodejs/"/>
     
       <category term="http" scheme="http://blog.cuiyy.top/tags/http/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>browsersync 省时的浏览器同步测试工具</title>
-    <link href="http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/"/>
-    <id>http://blog.cuiyy.top/2017/06/23/Tve7kc4flBoVIhdF/</id>
-    <published>2017-06-23T01:58:32.000Z</published>
-    <updated>2017-06-23T02:42:16.000Z</updated>
-    
-    <content type="html"><![CDATA[<blockquote><p>Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。<br>更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。<br>您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改动”。<br>无论您是前端还是后端工程师，使用它将提高您30%的工作效率。</p></blockquote><a id="more"></a><figure class="image-bubble"> <div class="img-lightbox"> <div class="overlay"></div> <img src="http://www.browsersync.cn/img/sync-demo.gif" alt="" title=""> </div> <div class="image-caption"></div> </figure><h3 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h3><h4 id="安装nodejs"><a href="#安装nodejs" class="headerlink" title="安装nodejs"></a>安装nodejs</h4><h4 id="安装browsersync"><a href="#安装browsersync" class="headerlink" title="安装browsersync"></a>安装browsersync</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">npm install -g browser-sync</div></pre></td></tr></table></figure><h3 id="启动-BrowserSync"><a href="#启动-BrowserSync" class="headerlink" title="启动 BrowserSync"></a>启动 BrowserSync</h3><h4 id="静态网站"><a href="#静态网站" class="headerlink" title="静态网站"></a>静态网站</h4><p>如果您想要监听.css文件, 您需要使用服务器模式。 BrowserSync 将启动一个小型服务器，并提供一个URL来查看您的网站。<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">browser-sync start --server --files <span class="string">"css/*.css"</span></div></pre></td></tr></table></figure></p><p><code>--files</code> 路径是相对于运行该命令的项目（目录） </p><p>如果您需要监听多个类型的文件，您只需要用逗号隔开。例如我们再加入一个.html文件</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># --files 路径是相对于运行该命令的项目（目录） </span></div><div class="line">browser-sync start --server --files <span class="string">"css/*.css, *.html"</span></div><div class="line"><span class="comment"># 如果你的文件层级比较深，您可以考虑使用 **（表示任意目录）匹配，任意目录下任意.css 或 .html文件。 </span></div><div class="line">browser-sync start --server --files <span class="string">"**/*.css, **/*.html"</span></div></pre></td></tr></table></figure><h4 id="动态网站"><a href="#动态网站" class="headerlink" title="动态网站"></a>动态网站</h4><p>如果您已经有其他本地服务器环境PHP或类似的，您需要使用代理模式。 BrowserSync将通过代理URL(localhost:3000)来查看您的网站。</p><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># 主机名可以是ip或域名</span></div><div class="line"><span class="comment"># --port 指定代理端口</span></div><div class="line">browser-sync start --proxy <span class="string">"127.0.0.1:8080"</span> --port 3001 --files <span class="string">"css/*.css"</span></div></pre></td></tr></table></figure>]]></content>
-    
-    <summary type="html">
-    
-      &lt;blockquote&gt;
-&lt;p&gt;Browsersync能让浏览器实时、快速响应您的文件更改（html、js、css、sass、less等）并自动刷新页面。&lt;br&gt;更重要的是 Browsersync可以同时在PC、平板、手机等设备下进项调试。&lt;br&gt;您可以想象一下：“假设您的桌子上有pc、ipad、iphone、android等设备，同时打开了您需要调试的页面，当您使用browsersync后，您的任何一次代码保存，以上的设备都会同时显示您的改动”。&lt;br&gt;无论您是前端还是后端工程师，使用它将提高您30%的工作效率。&lt;/p&gt;
-&lt;/blockquote&gt;
-    
-    </summary>
-    
-      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="nodejs" scheme="http://blog.cuiyy.top/tags/nodejs/"/>
-    
-      <category term="自动化" scheme="http://blog.cuiyy.top/tags/%E8%87%AA%E5%8A%A8%E5%8C%96/"/>
     
   </entry>
   
