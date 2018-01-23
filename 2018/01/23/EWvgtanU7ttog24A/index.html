@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+<!-- Google Analytics -->
+<script>
+window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+ga('create', 'UA-98939871-1', 'auto');
+ga('send', 'pageview');
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+<!-- End Google Analytics -->
+
+
+    
+
+    
+<!-- Baidu Tongji -->
+<script>var _hmt = _hmt || []</script>
+<script async src="//hm.baidu.com/hm.js?270bbfd3f0ca3aa13649de8ddca18bcc"></script>
+<!-- End Baidu Tongji -->
+
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    <title>Vuex 引入多个模块简写方法 | Cyy&#39;s Blog | 生命不止，折腾不息！</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="Vue.js,webpack">
+    <meta name="description" content="在使用Vuex对vue项目进行状态管理时，我们的Vuex主文件通常是这个样子的： 123456789101112import Vue from &apos;vue&apos;import Vuex from &apos;vuex&apos;import A from &apos;./modules/a&apos;import B from &apos;./modules/a&apos;Vue.use(Vuex)export default new Vuex.Store(&amp;#1">
+<meta name="keywords" content="Vue.js,webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Vuex 引入多个模块简写方法">
+<meta property="og:url" content="http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/index.html">
+<meta property="og:site_name" content="Cyy&#39;s Blog">
+<meta property="og:description" content="在使用Vuex对vue项目进行状态管理时，我们的Vuex主文件通常是这个样子的： 123456789101112import Vue from &apos;vue&apos;import Vuex from &apos;vuex&apos;import A from &apos;./modules/a&apos;import B from &apos;./modules/a&apos;Vue.use(Vuex)export default new Vuex.Store(&amp;#1">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2018-01-23T06:16:05.066Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Vuex 引入多个模块简写方法">
+<meta name="twitter:description" content="在使用Vuex对vue项目进行状态管理时，我们的Vuex主文件通常是这个样子的： 123456789101112import Vue from &apos;vue&apos;import Vuex from &apos;vuex&apos;import A from &apos;./modules/a&apos;import B from &apos;./modules/a&apos;Vue.use(Vuex)export default new Vuex.Store(&amp;#1">
+    
+        <link rel="alternate" type="application/atom+xml" title="Cyy&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/img/favicon.ico">
+    <link rel="stylesheet" href="/css/style.css?v=1.6.5">
+    <script>window.lazyScripts=[]</script>
+    <!-- 百度站长 -->
+    <meta name="baidu-site-verification" content="MiDIocUaQv" />
+    <!-- 搜狗联盟 -->
+    <meta name="domain_verify" content="pmrgi33nmfuw4ir2ejrxk2lzpexhi33qeiwcez3vnfsceorcmzstonrymy4wcnbwg5stinzugy4ggmrzmqywen3dgy3wenbygqzselbcoruw2zktmf3gkir2ge2dsnbvha2domzsgy3de7i">
+    <!-- 百度联盟 -->
+    <meta name="baidu_ssp_verify" content="09204ca5142fc493657b3ad299a2bdc7">
+    <meta name="baidu_union_verify" content="413ecfc3f0433898c5c7530ea0db9502">
+    <!-- 谷歌广告 -->
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+      (adsbygoogle = window.adsbygoogle || []).push({
+        google_ad_client: "ca-pub-8385177684799626",
+        enable_page_level_ads: true
+      });
+    </script>
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/sidebar_header.jpg)">
+      <div class="brand">
+        <a href="/about" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/h.jpeg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">CYY</h5>
+          <a href="mailto:cyy6543@gmail.com" title="cyy6543@gmail.com" class="mail">cyy6543@gmail.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                归档
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/cyyjs" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/about"  >
+                <i class="icon icon-lg icon-link"></i>
+                关于我
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">Vuex 引入多个模块简写方法</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">Vuex 引入多个模块简写方法</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2018-01-23T06:16:05.000Z" itemprop="datePublished" class="page-time">
+  2018-01-23
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+<article id="post-EWvgtanU7ttog24A"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">Vuex 引入多个模块简写方法</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2018-01-23 14:16:05" datetime="2018-01-23T06:16:05.000Z"  itemprop="datePublished">2018-01-23</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/技术/">技术</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+            
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent" style="padding-bottom: 30px;">
+            <p>在使用<code>Vuex</code>对<code>vue</code>项目进行状态管理时，我们的<code>Vuex</code>主文件通常是这个样子的：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"><span class="keyword">import</span> A <span class="keyword">from</span> <span class="string">'./modules/a'</span></div><div class="line"><span class="keyword">import</span> B <span class="keyword">from</span> <span class="string">'./modules/a'</span></div><div class="line">Vue.use(Vuex)</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">    modules: &#123;</div><div class="line">        A,</div><div class="line">        B</div><div class="line">    &#125;,</div><div class="line">    strict: <span class="literal">true</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>随着项目变得越来越大，我们导入的文件就会越来越多，而且有时候在<code>modules</code>文件夹下添加了文件后，会忘了在主文件中添加进去；有没有自动导入的方法呢？</p>
+<p>在<code>webpack</code>中，有提到一个方法<a href="https://doc.webpack-china.org/guides/dependency-management/#require-context" target="_blank" rel="external">require.context</a>；可以使用此方法来创建自己的（模块）上下文，它接收三个参数：</p>
+<ul>
+<li>要搜索的文件夹目录</li>
+<li>是否还应该搜索它的子目录</li>
+<li>以及一个匹配文件的正则表达式</li>
+</ul>
+<p>例如：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.context(<span class="string">"./test"</span>, <span class="literal">false</span>, /\.test\.js$/);</div><div class="line"><span class="comment">// （创建了）一个包含了 test 文件夹（不包含子目录）</span></div><div class="line"><span class="comment">// 下面的、所有文件名以 `.test.js` 结尾的、</span></div><div class="line"><span class="comment">// 能被 require 请求到的文件的上下文。</span></div></pre></td></tr></table></figure>
+<p>详细请查看<a href="https://doc.webpack-china.org/guides/dependency-management/#require-context" target="_blank" rel="external">require.context</a>的文档。</p>
+<p>我们可以使用此方法来修改我们的代码；修改后如下：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line">Vue.use(Vuex)</div><div class="line"><span class="keyword">let</span> ms = <span class="built_in">require</span>.context(<span class="string">'./modules'</span>, <span class="literal">false</span>, /\.js$/)</div><div class="line"><span class="keyword">let</span> modules = &#123;&#125;</div><div class="line">ms.keys().forEach(<span class="function"><span class="params">k</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">let</span> n = k.substring(<span class="number">2</span>, k.length - <span class="number">3</span>)</div><div class="line">    modules[n] = ms(k).default</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">    modules,</div><div class="line">    strict: <span class="literal">true</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>此时，在<code>modules</code>中添加的所有以<code>.js</code>后缀结尾的文件都会被自动导入进来了。</p>
+<div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>
+        </div>
+
+        
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Vue-js/">Vue.js</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/webpack/">webpack</a></li></ul>
+
+            
+<div class="page-reward" style="padding: 0;position: absolute;right: 95px;top:-21px;margin: 0;height:42px;">
+    <a id="rewardBtn" href="javascript:;" style="width: 42px;height: 42px;line-height: 42px;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/&title=《Vuex 引入多个模块简写方法》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/&title=《Vuex 引入多个模块简写方法》 — Cyy's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vuex 引入多个模块简写方法》 — Cyy's Blog&url=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+    
+    
+<nav class="post-nav flex-row flex-justify-between flex-row-reverse">
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2018/01/16/71hYzzWl30Ec9OZh/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">如何免费科学上网</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        买桶泡面~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <ul class="reward-items">
+        
+        <li>
+            <img src="/img/wechat.jpg" title="微信打赏二维码" alt="微信打赏二维码">
+            <p>微信</p>
+        </li>
+        
+
+        
+        <li>
+            <img src="/img/alipay.jpg" title="支付宝打赏二维码" alt="支付宝打赏二维码">
+            <p>支付宝</p>
+        </li>
+        
+    </ul>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循<a rel="license" target="_blank" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p>
+            <span>Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a></span>
+            <span>CYY &copy; 2016 - 2018</span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/&title=《Vuex 引入多个模块简写方法》 — Cyy's Blog&pic=http://blog.cuiyy.top/img/h.jpeg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/&title=《Vuex 引入多个模块简写方法》 — Cyy's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《Vuex 引入多个模块简写方法》 — Cyy's Blog&url=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/&via=http://blog.cuiyy.top" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMYAAADGCAAAAACs8KCBAAACJklEQVR42u3aQW7EIAwF0N7/0um6qpL5tmmlwGMVaTLAy8LCNl9f8bh+jcmbd78m848GBgbGaxnX40g2lyzcmz/ZGwYGxjmMu4Xv3nleOPnXMzjfGwYGBsbd8zNgAsbAwMBYFXDvAmg14N59IAwMDIxeEhtNFySxk+C+IBfHwMB4ISPfxP8//0l/AwMD41WMqziSBmQ1lPd28mMeDAyMrRm9BmSelM4Dd2E/GBgYWzPy1LFa9M9neP4ohVYoBgbGAYxe6Mw3kT8n+8HAwDiB8ezLC/F5alot6kWlNwwMjGMY+QGuGl5z3oLbIhgYGNsx8kS0d3zsHfVGYRcDA2M7RqGMVSyNrS2xfZgHAwNja0a1MZCnsmuD8uL+BgYGxqsYyfWvvEkwKc9FvYu7XzEwMLZmTLY432ivXYGBgXEao3x+LF6hyD/H804+pL4YGBjHM/IFqoW2vPRW6GxgYGBsx5hcuchT0Ks4ehc1MDAw9mbky6+9PFHF54k3BgbGfoz58tXDXx5AC7NhYGAcxljV4EzYvSZEob+BgYGxHaN3/WtyRaPX4Bzl4hgYGK9izAthk9ZCL3kux2kMDIyXM/IxaRj0Anp1ZgwMjL0ZeZDtHf561y/Kh04MDIwDGL0kMy/V5eX+Bbk4BgbG8Yw8NFcboqOUFQMDAyM+AlZLZkmKG7U2MTAwDmBUmwHJwtUmweTDYWBg7M2onrvmSW/v4teCpiYGBsb7GN9EUSLgW3G4fgAAAABJRU5ErkJggg==" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+
+</script>
+
+<script src="/js/main.min.js?v=1.6.5"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="/js/search.min.js?v=1.6.5" async></script>
+
+
+
+
+
+
+<script async src="//dn-lbstatics.qbox.me/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '死鬼去哪里了！';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '(つェ⊂)咦!又好了!';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

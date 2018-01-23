@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.cuiyy.top/"/>
-  <updated>2018-01-16T06:03:15.866Z</updated>
+  <updated>2018-01-23T06:16:05.066Z</updated>
   <id>http://blog.cuiyy.top/</id>
   
   <author>
@@ -15,6 +15,34 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Vuex 引入多个模块简写方法</title>
+    <link href="http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/"/>
+    <id>http://blog.cuiyy.top/2018/01/23/EWvgtanU7ttog24A/</id>
+    <published>2018-01-23T06:16:05.000Z</published>
+    <updated>2018-01-23T06:16:05.066Z</updated>
+    
+    <content type="html"><![CDATA[<p>在使用<code>Vuex</code>对<code>vue</code>项目进行状态管理时，我们的<code>Vuex</code>主文件通常是这个样子的：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line"><span class="keyword">import</span> A <span class="keyword">from</span> <span class="string">'./modules/a'</span></div><div class="line"><span class="keyword">import</span> B <span class="keyword">from</span> <span class="string">'./modules/a'</span></div><div class="line">Vue.use(Vuex)</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">    modules: &#123;</div><div class="line">        A,</div><div class="line">        B</div><div class="line">    &#125;,</div><div class="line">    strict: <span class="literal">true</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure><p>随着项目变得越来越大，我们导入的文件就会越来越多，而且有时候在<code>modules</code>文件夹下添加了文件后，会忘了在主文件中添加进去；有没有自动导入的方法呢？</p><p>在<code>webpack</code>中，有提到一个方法<a href="https://doc.webpack-china.org/guides/dependency-management/#require-context" target="_blank" rel="external">require.context</a>；可以使用此方法来创建自己的（模块）上下文，它接收三个参数：</p><ul><li>要搜索的文件夹目录</li><li>是否还应该搜索它的子目录</li><li>以及一个匹配文件的正则表达式</li></ul><p>例如：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="built_in">require</span>.context(<span class="string">"./test"</span>, <span class="literal">false</span>, /\.test\.js$/);</div><div class="line"><span class="comment">// （创建了）一个包含了 test 文件夹（不包含子目录）</span></div><div class="line"><span class="comment">// 下面的、所有文件名以 `.test.js` 结尾的、</span></div><div class="line"><span class="comment">// 能被 require 请求到的文件的上下文。</span></div></pre></td></tr></table></figure><p>详细请查看<a href="https://doc.webpack-china.org/guides/dependency-management/#require-context" target="_blank" rel="external">require.context</a>的文档。</p><p>我们可以使用此方法来修改我们的代码；修改后如下：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">import</span> Vue <span class="keyword">from</span> <span class="string">'vue'</span></div><div class="line"><span class="keyword">import</span> Vuex <span class="keyword">from</span> <span class="string">'vuex'</span></div><div class="line">Vue.use(Vuex)</div><div class="line"><span class="keyword">let</span> ms = <span class="built_in">require</span>.context(<span class="string">'./modules'</span>, <span class="literal">false</span>, /\.js$/)</div><div class="line"><span class="keyword">let</span> modules = &#123;&#125;</div><div class="line">ms.keys().forEach(<span class="function"><span class="params">k</span> =&gt;</span> &#123;</div><div class="line">    <span class="keyword">let</span> n = k.substring(<span class="number">2</span>, k.length - <span class="number">3</span>)</div><div class="line">    modules[n] = ms(k).default</div><div class="line">&#125;)</div><div class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="keyword">new</span> Vuex.Store(&#123;</div><div class="line">    modules,</div><div class="line">    strict: <span class="literal">true</span></div><div class="line">&#125;)</div></pre></td></tr></table></figure><p>此时，在<code>modules</code>中添加的所有以<code>.js</code>后缀结尾的文件都会被自动导入进来了。</p><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;在使用&lt;code&gt;Vuex&lt;/code&gt;对&lt;code&gt;vue&lt;/code&gt;项目进行状态管理时，我们的&lt;code&gt;Vuex&lt;/code&gt;主文件通常是这个样子的：&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gu
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="Vue.js" scheme="http://blog.cuiyy.top/tags/Vue-js/"/>
+    
+      <category term="webpack" scheme="http://blog.cuiyy.top/tags/webpack/"/>
+    
+  </entry>
   
   <entry>
     <title>如何免费科学上网</title>
@@ -501,30 +529,6 @@
     
     
       <category term="FTP" scheme="http://blog.cuiyy.top/tags/FTP/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>nodejs http.request 设置超时</title>
-    <link href="http://blog.cuiyy.top/2017/06/23/ujZ8WMuDA7TISLvv/"/>
-    <id>http://blog.cuiyy.top/2017/06/23/ujZ8WMuDA7TISLvv/</id>
-    <published>2017-06-23T13:19:11.000Z</published>
-    <updated>2017-06-26T03:43:52.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>使用<code>nodejs</code>在请求第三方接口的时候，经常会用到<code>http.request()</code>方法；为了防止请求等待时间过长，我们可以为其设置超时时间。<br><a id="more"></a><br>在请求参数中添加<code>timeout</code>参数<br>例如：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"><span class="keyword">var</span> options = &#123; </div><div class="line">    hostname: <span class="string">'127.0.0'</span>, </div><div class="line">    port: <span class="number">8080</span>, </div><div class="line">    path: <span class="string">'/x'</span>, </div><div class="line">    method: <span class="string">'GET'</span>,</div><div class="line">    timeout: <span class="number">500</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> req = http.request(options, <span class="function"><span class="keyword">function</span> (<span class="params">res</span>) </span>&#123;</div><div class="line">    res.on(<span class="string">'data'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">chunk</span>) </span>&#123; </div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'BODY: '</span> + chunk); </div><div class="line">    &#125;);</div><div class="line">    res.on(<span class="string">'end'</span>, <span class="function"><span class="keyword">function</span> (<span class="params">error</span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'请求完成'</span>);</div><div class="line">    &#125;);</div><div class="line">    res.on(<span class="string">'timeout'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'请求超时'</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div><div class="line">req.on(<span class="string">'error'</span>, <span class="function"><span class="keyword">function</span>(<span class="params">e</span>) </span>&#123; </div><div class="line">    <span class="built_in">console</span>.log(<span class="string">'请求失败: '</span> + e.message); </div><div class="line">&#125;);</div><div class="line">req.end();</div></pre></td></tr></table></figure><p>请求超过500毫秒后，会终止请求，同时触发<code>timeout</code>事件，我们可以监听此事件，在请求超时后做一些处理。</p>]]></content>
-    
-    <summary type="html">
-    
-      &lt;p&gt;使用&lt;code&gt;nodejs&lt;/code&gt;在请求第三方接口的时候，经常会用到&lt;code&gt;http.request()&lt;/code&gt;方法；为了防止请求等待时间过长，我们可以为其设置超时时间。&lt;br&gt;
-    
-    </summary>
-    
-      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="nodejs" scheme="http://blog.cuiyy.top/tags/nodejs/"/>
-    
-      <category term="http" scheme="http://blog.cuiyy.top/tags/http/"/>
     
   </entry>
   
