@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://blog.cuiyy.top/"/>
-  <updated>2018-03-22T07:51:56.792Z</updated>
+  <updated>2018-03-28T09:30:19.197Z</updated>
   <id>http://blog.cuiyy.top/</id>
   
   <author>
@@ -15,6 +15,32 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>nodejs逐行读取文件并转换输出</title>
+    <link href="http://blog.cuiyy.top/2018/03/28/QTxfUP8XWqKsPYwW/"/>
+    <id>http://blog.cuiyy.top/2018/03/28/QTxfUP8XWqKsPYwW/</id>
+    <published>2018-03-28T09:30:19.000Z</published>
+    <updated>2018-03-28T09:30:19.197Z</updated>
+    
+    <content type="html"><![CDATA[<p>文件数据过滤，并将过滤后的数据存入新的文件。</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</div><div class="line"><span class="keyword">const</span> readline = <span class="built_in">require</span>(<span class="string">'readline'</span>);</div><div class="line"><span class="keyword">const</span> path1 = __dirname + <span class="string">'/aid_imei_mac.log'</span>;</div><div class="line"><span class="keyword">const</span> path2 = __dirname + <span class="string">'/aid_imei_mac1.log'</span>;</div><div class="line"><span class="keyword">let</span> wf = fs.createWriteStream(path2) <span class="comment">// 创建一个写入流</span></div><div class="line"><span class="keyword">const</span> strem = process.stderr; <span class="comment">// 终端输出</span></div><div class="line"></div><div class="line"><span class="keyword">const</span> rl = readline.createInterface(&#123;</div><div class="line">    input: fs.createReadStream(path1),</div><div class="line">    <span class="comment">// output: process.stdout</span></div><div class="line">&#125;);</div><div class="line"><span class="keyword">let</span> i = <span class="number">0</span></div><div class="line">rl.on(<span class="string">'line'</span>, (line) =&gt; &#123;</div><div class="line">    <span class="keyword">if</span> (line.split(<span class="string">','</span>).filter(<span class="function"><span class="params">i</span> =&gt;</span> !!i).length == <span class="number">3</span>) &#123;</div><div class="line">        wf.write(line + <span class="string">'\n'</span>)</div><div class="line">        i++</div><div class="line">        <span class="comment">// 控制台输入写入进度</span></div><div class="line">        strem.cursorTo(<span class="number">0</span>)</div><div class="line">        strem.write(<span class="string">`写入<span class="subst">$&#123;i&#125;</span>行<span class="subst">$&#123;(wf.bytesWritten <span class="regexp">/ 1024 /</span> <span class="number">1024</span>).toFixed(<span class="number">2</span>)&#125;</span>M 数据`</span>)</div><div class="line">    &#125;</div><div class="line">&#125;);</div><div class="line">rl.on(<span class="string">'close'</span>, <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="comment">//将操作系统缓存区中的数据全部写入文件</span></div><div class="line">    wf.end(<span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">'\n文件全部写入完毕'</span>);</div><div class="line">        <span class="built_in">console</span>.log(<span class="string">`共写入<span class="subst">$&#123;(wf.bytesWritten <span class="regexp">/ 1024 /</span> <span class="number">1024</span>).toFixed(<span class="number">2</span>)&#125;</span>M 数据`</span>);</div><div class="line">    &#125;);</div><div class="line">&#125;);</div></pre></td></tr></table></figure><div style="text-align:right;font-size:12px;color:#666;">—-publish by <a href="http://ceditor.alibt.top" target="_blank">CEditor</a></div>]]></content>
+    
+    <summary type="html">
+    
+      
+      
+        &lt;p&gt;文件数据过滤，并将过滤后的数据存入新的文件。&lt;/p&gt;
+&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/
+      
+    
+    </summary>
+    
+      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+      <category term="nodejs" scheme="http://blog.cuiyy.top/tags/nodejs/"/>
+    
+  </entry>
   
   <entry>
     <title>Docker常用命令</title>
@@ -498,34 +524,6 @@
     
     
       <category term="npm" scheme="http://blog.cuiyy.top/tags/npm/"/>
-    
-  </entry>
-  
-  <entry>
-    <title>pm2怎么指定master</title>
-    <link href="http://blog.cuiyy.top/2017/08/08/7URpImMqF24g6oKs/"/>
-    <id>http://blog.cuiyy.top/2017/08/08/7URpImMqF24g6oKs/</id>
-    <published>2017-08-08T06:59:46.000Z</published>
-    <updated>2017-08-08T07:10:08.000Z</updated>
-    
-    <content type="html"><![CDATA[<p>node集群启动模式通常会这样写</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> cluster = <span class="built_in">require</span>(<span class="string">'cluster'</span>);  </div><div class="line"><span class="keyword">var</span> http    = <span class="built_in">require</span>(<span class="string">'http'</span>);  </div><div class="line"><span class="keyword">var</span> os      = <span class="built_in">require</span>(<span class="string">'os'</span>);</div><div class="line"><span class="keyword">var</span> numCPUs = os.cpus().length;</div><div class="line"></div><div class="line"><span class="keyword">if</span>(cluster.isMaster)&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; numCPUs; ++i) &#123;</div><div class="line">    cluster.fork();</div><div class="line">  &#125;</div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">  http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;</div><div class="line">    res.writeHead(<span class="number">200</span>);</div><div class="line">    res.end(<span class="string">"hello world"</span>);</div><div class="line">  &#125;).listen(<span class="number">8080</span>);</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>我们可以通过<code>cluster.isMaster</code>来执行一些任务;<br><a href="http://pm2.keymetrics.io/" target="_blank" rel="external">pm2</a>是一个很好的<code>nodejs</code> 管理工具，我们可以通过配置来启动我们的<code>nodejs</code>服务，他的代码和我们平常写的一样。<br>例如：<br><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</div><div class="line"></div><div class="line">http.createServer(<span class="function"><span class="keyword">function</span>(<span class="params">req, res</span>) </span>&#123;  </div><div class="line">  res.writeHead(<span class="number">200</span>);</div><div class="line">  res.end(<span class="string">"hello world"</span>);</div><div class="line">&#125;).listen(<span class="number">8080</span>);</div></pre></td></tr></table></figure></p><p>但是我们想只在<code>master</code>上做一些任务，改怎么做呢？<br>下面跟出一中方法：<br>我们可以通过两个配置，分别指定不同的命令行参数来区别：</p><figure class="highlight json"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">  <span class="attr">"apps"</span> : [</div><div class="line">    &#123;</div><div class="line">      <span class="attr">"name"</span>: <span class="string">"Master"</span>,</div><div class="line">      <span class="attr">"script"</span>: <span class="string">"app.js"</span>,</div><div class="line">      <span class="attr">"args"</span>: [<span class="string">"master"</span>],</div><div class="line">      <span class="attr">"instances"</span>: <span class="string">"1"</span>,</div><div class="line">    &#125;,</div><div class="line">    &#123;</div><div class="line">      <span class="attr">"name"</span>: <span class="string">"Slave"</span>,</div><div class="line">      <span class="attr">"script"</span>: <span class="string">"app.js"</span>,</div><div class="line">      <span class="attr">"args"</span>: [<span class="string">"slave"</span>],</div><div class="line">      <span class="attr">"instances"</span>: <span class="string">"-1"</span></div><div class="line">    &#125;</div><div class="line">  ]</div><div class="line">&#125;</div></pre></td></tr></table></figure><p>然后在<code>app.js</code>中这样写：</p><figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span> (process.argv[<span class="number">2</span>] === <span class="string">'master'</span>)&#123;</div><div class="line">   <span class="comment">// ...</span></div><div class="line">&#125; <span class="keyword">else</span> &#123;</div><div class="line">  <span class="comment">// ...</span></div><div class="line">&#125;</div></pre></td></tr></table></figure><p>也可以通过其他环境变量参数来区分那个是<code>master</code>。</p>]]></content>
-    
-    <summary type="html">
-    
-      
-      
-        &lt;p&gt;node集群启动模式通常会这样写&lt;/p&gt;
-&lt;figure class=&quot;highlight js&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;div class=&quot;line&quot;&gt;1&lt;/div&gt;&lt;div class=&quot;line&quot;&gt;2&lt;/div&gt;&lt;d
-      
-    
-    </summary>
-    
-      <category term="技术" scheme="http://blog.cuiyy.top/categories/%E6%8A%80%E6%9C%AF/"/>
-    
-    
-      <category term="nodejs" scheme="http://blog.cuiyy.top/tags/nodejs/"/>
-    
-      <category term="pm2" scheme="http://blog.cuiyy.top/tags/pm2/"/>
     
   </entry>
   
